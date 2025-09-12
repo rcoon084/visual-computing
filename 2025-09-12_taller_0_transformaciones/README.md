@@ -1,19 +1,67 @@
 # Taller 0 - Transformaciones Básicas en Computación Visual
 
-Este repositorio contiene las implementaciones del taller Transformaciones Básicas en Computación Visual, cuyo objetivo es explorar los conceptos fundamentales de transformaciones geométricas (traslación, rotación y escala) en cuatro entornos de programación visual diferentes. Cada implementación muestra un objeto animado en función del tiempo.
+**Fecha:** 2025-09-12
 
 ---
 
-## 1. Python con Matplotlib y NumPy
+## Objetivo del Taller
+Explorar los conceptos fundamentales de las transformaciones geométricas (traslación, rotación y escala) y su implementación en distintos entornos de programación visual.
 
-### Explicación
-Esta implementación se enfoca en el enfoque matemático de las transformaciones. Se define un cuadrado 2D a través de sus vértices en coordenadas homogéneas y se aplican transformaciones mediante la construcción y multiplicación de matrices 3x3. La animación se genera en un bucle donde, en cada frame, se calcula una matriz de transformación combinada (`M = T @ R @ S`) basada en una variable de tiempo `t`. `Matplotlib` se encarga de renderizar cada frame, y `Imageio` los une para crear el GIF final.
+---
 
-### Resultado
-![Animación en Python](python/output_python/pythonGIF.gif)
+## Conceptos Aprendidos
+- [x] **Transformaciones geométricas (escala, rotación, traslación)**
+- [ ] Segmentación de imágenes
+- [ ] Shaders y efectos visuales
+- [ ] Entrenamiento de modelos IA
+- [ ] Comunicación por gestos o voz
+- [ ] Otro: _______________________
 
-### Código Relevante
-La lógica principal reside en el bucle de animación, donde los parámetros de las matrices de Escala, Rotación y Traslación se calculan dinámicamente.
+---
+
+## Herramientas y Entornos
+* **Python:** `matplotlib` (visualización), `numpy` (cálculo matricial), `imageio` (exportación de GIF).
+* **Unity:** Versión LTS 2022.3 o superior.
+* **Three.js:** A través de la librería `React Three Fiber` sobre un proyecto Vite.
+* **Processing:** IDE oficial de Processing 4.
+* **Entorno de Desarrollo:** Jupyter Notebook / Google Colab, VS Code.
+
+---
+
+## Estructura del Proyecto
+El repositorio sigue la estructura definida para el taller:
+```
+
+2025-09-12_taller_0_transformaciones/
+├── processing/
+│   ├── output_processing/
+│   │   └── ProcessingGIF.gif
+│   └── ProcessingCube/
+│       └── ProcessingCube.pde
+├── python/
+│   ├── output_python/
+│   │   └── pythonGIF.gif
+│   └── VisualComputing_T0_Python.ipynb
+├── threejs/
+│   ├── mi-escena-r3f/
+│   │   └── (archivos del proyecto Vite)
+│   └── output_threejs/
+│       └── threejsGIF.gif
+├── unity/
+│   ├── unity_output/
+│   │   └── unityGIF.gif
+│   └── TransformController.cs
+└── README.md
+
+```
+---
+
+## Implementación
+El taller se desarrolló en cuatro partes, aplicando el mismo concepto de transformaciones animadas en cada entorno para comparar sus distintas filosofías y paradigmas de programación.
+
+### 1. Python con Matplotlib y NumPy 
+* **Proceso:** Se definió una figura 2D (cuadrado) por sus vértices en coordenadas homogéneas. Se crearon funciones para generar matrices de transformación 3x3 (escala, rotación, traslación). En un bucle, se calcularon los parámetros de transformación en función de una variable de tiempo `t` y se combinaron las matrices. La matriz resultante se aplicó a los vértices originales y se renderizó el resultado con Matplotlib, guardando cada frame para luego componer el GIF.
+* **Código Relevante:** La lógica principal reside en el bucle de animación, donde los parámetros de las matrices de Escala, Rotación y Traslación se calculan dinámicamente.
 
 ```python
 # 't' es nuestro factor de tiempo, va de 0.0 a 1.0
@@ -31,20 +79,13 @@ M = T @ R @ S
 transformed_square = M @ original_square
 
 ```
----
+### Resultados visuales en Python
+![Animación en Python](python/output_python/pythonGIF.gif)
 
-## 2. Unity 
-
-### Explicación
-
-En Unity, el enfoque es orientado a objetos. Se crea un Cubo (`GameObject`) en una escena 3D y se le adjunta un script en C\#. Las transformaciones se ejecutan en el método `Update()`. La rotación es constante y el escalado es oscilante. Para la traslación, el script elige una posición aleatoria y mueve el cubo suavemente hacia ella durante un período de tiempo definido, utilizando interpolación lineal (`Vector3.Lerp`). Una vez que llega a su destino, elige uno nuevo, creando un movimiento continuo.
-
-### Resultado
-![Animación en Unity](unity/unity_output/unityGIF.gif)
-
-### Código Relevante
-
-El método `Update()` contiene la lógica para la interpolación suave de la posición.
+### 2. Unity 
+* **Proceso:** Se creó una escena 3D con un Cubo (`GameObject`). Se le adjuntó un script en C# que, en su método `Update()`, modifica el componente `Transform` del objeto. La rotación es constante y el escalado es oscilante. Para la traslación, el script elige un punto aleatorio y mueve el objeto suavemente hacia él usando interpolación lineal (`Vector3.Lerp`) para un efecto de movimiento continuo.
+* **Código Relevante:**
+   El método `Update()` contiene la lógica para la interpolación suave de la posición.
 
 ```csharp
 void Update()
@@ -70,18 +111,12 @@ void Update()
     }
 }
 ```
----
+### Resultados visuales en Unity
+![Animación en Unity](unity/unity_output/unityGIF.gif)
 
-## 3. Three.js con React Three Fiber 
-
-### Explicación
-
-Esta implementación utiliza un enfoque declarativo y basado en componentes para crear una escena 3D en la web. La escena se construye con JSX dentro de un componente `<Canvas>`. La animación se controla con el hook `useFrame`, que ejecuta una función en cada frame. Se utiliza un `useRef` para obtener acceso directo al objeto `mesh` y modificar sus propiedades (`position`, `rotation`, `scale`) basándose en el tiempo transcurrido del reloj (`state.clock.elapsedTime`). El componente `OrbitControls` de la librería `@react-three/drei` se añade como bonus para la navegación de la escena.
-
-### Resultado
-![Animación en Threejs](threejs/output_threejs/threejsGIF.gif)
-
-### Código Relevante
+### 3. Three.js con React Three Fiber 
+* **Proceso:** Se montó un proyecto web con Vite y React. La escena 3D se construye de forma declarativa con componentes JSX (`<Canvas>`, `<mesh>`). La animación se gestiona con el hook `useFrame`, que se ejecuta en cada frame. Dentro del hook, se modifica la posición, rotación y escala del objeto a través de una referencia (`useRef`), utilizando el tiempo del reloj (`state.clock.elapsedTime`) para crear una trayectoria circular y efectos de pulso.
+* **Código Relevante:**
 
 El hook `useFrame` es el motor de la animación, actualizando las propiedades del objeto en cada renderizado.
 
@@ -101,20 +136,13 @@ useFrame((state, delta) => {
     meshRef.current.scale.set(scale, scale, scale);
 });
 ```
-----
 
-## 4. Processing
+### Resultados visuales en Three.js
+![Animación en Threejs](threejs/output_threejs/threejsGIF.gif)
 
-### Explicación
-
-Processing utiliza una filosofía de "lienzo dinámico". En lugar de transformar el objeto en sí, se transforma el sistema de coordenadas completo antes de que el objeto sea dibujado. Dentro del bucle principal `draw()`, funciones como `translate()`, `rotate()` y `scale()` se usan para modificar esta "vista". Los comandos `pushMatrix()` y `popMatrix()` son cruciales para aislar estas transformaciones, evitando que afecten a otros elementos. La animación es impulsada por la variable global `frameCount`, que a menudo se usa con `sin()` para crear movimientos orgánicos y cíclicos.
-
-### Resultado
-
-![Animación en Processing](processing/output_processing/ProcessingGIF.gif)
-
-### Código Relevante
-
+### 4. Processing 
+* **Proceso:** Se utilizó la filosofía de "lienzo dinámico" de Processing. En lugar de transformar el objeto, se transforma el sistema de coordenadas completo antes de dibujarlo. Dentro del bucle `draw()`, se usan `translate()`, `rotate()` y `scale()` para alterar el "escenario". `pushMatrix()` y `popMatrix()` aíslan estas transformaciones. La animación se basa en la variable `frameCount` para crear movimientos ondulados y cíclicos.
+* **Código Relevante:**
 La lógica principal ocurre dentro de la función `draw()`, donde el sistema de coordenadas se manipula secuencialmente antes de dibujar la caja.
 
 ```java
@@ -144,4 +172,36 @@ void draw() {
   popMatrix();
 }
 ```
+### Resultados visuales en Processing
+![Animación en Processing](processing/output_processing/ProcessingGIF.gif)
+
 ---
+
+## Prompts Usados
+Se utilizaron varios prompts basados en la guía para generar, depurar y documentar el código. El siguiente es un ejemplo utilizado para la implementación en Python:
+
+1.  **Prompt para generar código:**
+    > "Crea un script en Python usando Matplotlib y NumPy para animar una figura 2D. El script debe:
+    > 1. Definir los vértices de un cuadrado.
+    > 2. Aplicar transformaciones de traslación, rotación y escala usando matrices de transformación homogéneas.
+    > 3. Animar las transformaciones en función de una variable de tiempo 't' para crear un ciclo completo.
+    > 4. Exportar la animación final como un archivo GIF usando la librería imageio."
+
+---
+
+## Reflexión Final
+Este taller fue muy util para conocer las diferentes herramientas que serán utilizadas a lo largo del semestre, y para entender y aplicar los conceptos aprendidos en las primeras sesiones de la clase. Cada entorno tiene sus propias caracteristicas, y con este taller se puede entender en que contextos se debe usar una herramienta u otra.
+
+---
+
+## Contribuciones Grupales
+Este taller fue realizado de forma individual.
+
+---
+
+## Checklist de Entrega
+- [x] Carpeta `2025-09-12_taller_0_transformaciones`
+- [x] Código limpio y funcional en las 4 carpetas
+- [x] GIFs incluidos con nombres descriptivos
+- [x] README completo y claro
+- [x] Commits descriptivos en inglés
