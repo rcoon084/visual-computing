@@ -1,0 +1,31 @@
+# Dependencies
+/node_modules
+
+# Build output
+/dist
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Vite build cache and local environment variables
+.vite/
+.env.local
+.env.*.local
+
+# IDE / Editor directories
+.vscode/
+.idea/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Test runner reports
+/coverage
+.nycrc
+
+# Optional lint-staged temporary files
+.lintstagedrc.js
