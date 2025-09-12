@@ -70,3 +70,32 @@ void Update()
 }
 ```
 
+## 3. Three.js con React Three Fiber 
+
+### Explicación
+
+Esta implementación utiliza un enfoque declarativo y basado en componentes para crear una escena 3D en la web. La escena se construye con JSX dentro de un componente `<Canvas>`. La animación se controla con el hook `useFrame`, que ejecuta una función en cada frame. Se utiliza un `useRef` para obtener acceso directo al objeto `mesh` y modificar sus propiedades (`position`, `rotation`, `scale`) basándose en el tiempo transcurrido del reloj (`state.clock.elapsedTime`). El componente `OrbitControls` de la librería `@react-three/drei` se añade como bonus para la navegación de la escena.
+
+### Resultado
+![Animación en Threejs](threejs/output_threejs/threejsGIF.gif)
+
+### Código Relevante
+
+El hook `useFrame` es el motor de la animación, actualizando las propiedades del objeto en cada renderizado.
+
+```jsx
+useFrame((state, delta) => {
+    const t = state.clock.getElapsedTime();
+
+    // 1. ROTACIÓN: Incremental en cada frame.
+    meshRef.current.rotation.y += delta * 0.5;
+
+    // 2. TRASLACIÓN: Trayectoria circular basada en el tiempo.
+    meshRef.current.position.x = Math.cos(t) * 2;
+    meshRef.current.position.z = Math.sin(t) * 2;
+
+    // 3. ESCALADO: Oscilación suave basada en el tiempo.
+    const scale = 1 + 0.5 * Math.sin(t * 2);
+    meshRef.current.scale.set(scale, scale, scale);
+});
+```
