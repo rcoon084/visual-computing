@@ -31,6 +31,7 @@ M = T @ R @ S
 transformed_square = M @ original_square
 
 ```
+---
 
 ## 2. Unity 
 
@@ -69,6 +70,7 @@ void Update()
     }
 }
 ```
+---
 
 ## 3. Three.js con React Three Fiber 
 
@@ -99,3 +101,47 @@ useFrame((state, delta) => {
     meshRef.current.scale.set(scale, scale, scale);
 });
 ```
+----
+
+## 4. Processing
+
+### Explicación
+
+Processing utiliza una filosofía de "lienzo dinámico". En lugar de transformar el objeto en sí, se transforma el sistema de coordenadas completo antes de que el objeto sea dibujado. Dentro del bucle principal `draw()`, funciones como `translate()`, `rotate()` y `scale()` se usan para modificar esta "vista". Los comandos `pushMatrix()` y `popMatrix()` son cruciales para aislar estas transformaciones, evitando que afecten a otros elementos. La animación es impulsada por la variable global `frameCount`, que a menudo se usa con `sin()` para crear movimientos orgánicos y cíclicos.
+
+### Resultado
+
+![Animación en Processing](processing/output_processing/ProcessingGIF.gif)
+
+### Código Relevante
+
+La lógica principal ocurre dentro de la función `draw()`, donde el sistema de coordenadas se manipula secuencialmente antes de dibujar la caja.
+
+```java
+void draw() {
+  // Limpiar el lienzo
+  background(20, 20, 40); 
+  lights();
+  
+  // Guardar el estado actual de coordenadas del sistema
+  pushMatrix();
+  
+  // Translacion
+  float waveX = sin(frameCount * 0.02) * 150;
+  translate(width / 2 + waveX, height / 2, 0);
+  
+  // Rotacion
+  float angle = frameCount * 0.01;
+  rotateY(angle);
+  rotateX(angle * 0.5);
+  
+  // Escalado
+  float scaleFactor = 1.0 + 0.5 * sin(frameCount * 0.05);
+  scale(scaleFactor);
+  
+  box(120);
+  
+  popMatrix();
+}
+```
+---
