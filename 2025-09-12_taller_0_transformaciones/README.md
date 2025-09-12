@@ -29,3 +29,44 @@ M = T @ R @ S
 
 # Aplicar la transformación a los vértices originales
 transformed_square = M @ original_square
+
+```
+
+## 2. Unity 
+
+### Explicación
+
+En Unity, el enfoque es orientado a objetos. Se crea un Cubo (`GameObject`) en una escena 3D y se le adjunta un script en C\#. Las transformaciones se ejecutan en el método `Update()`. La rotación es constante y el escalado es oscilante. Para la traslación, el script elige una posición aleatoria y mueve el cubo suavemente hacia ella durante un período de tiempo definido, utilizando interpolación lineal (`Vector3.Lerp`). Una vez que llega a su destino, elige uno nuevo, creando un movimiento continuo.
+
+### Resultado
+![Animación en Unity](unity/unity_output/unityGIF.gif)
+
+### Código Relevante
+
+El método `Update()` contiene la lógica para la interpolación suave de la posición.
+
+```csharp
+void Update()
+{
+    // Rotación constante y escalado oscilante...
+    
+    // --- Traslación Suave usando Lerp ---
+    // Incrementamos el temporizador del viaje
+    journeyTimer += Time.deltaTime;
+
+    // Calculamos el progreso del viaje (un valor de 0 a 1)
+    float journeyProgress = Mathf.Clamp01(journeyTimer / movementDuration);
+
+    // Usamos Vector3.Lerp para encontrar la posición actual en el viaje
+    transform.position = Vector3.Lerp(startPosition, targetPosition, journeyProgress);
+
+    // Si el viaje se completa, se elige un nuevo destino y se reinicia
+    if (journeyProgress >= 1.0f)
+    {
+        startPosition = targetPosition;
+        PickNewTargetPosition();
+        journeyTimer = 0f;
+    }
+}
+```
+
