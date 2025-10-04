@@ -1,16 +1,20 @@
-# Taller 1: Escena Natural con Iluminación Dinámica en Three.js
+# Taller: Materiales por Iluminación y Modelos de Color en un Mundo Virtual con Three.js
 
-## Mi Mundo Virtual: Refugio en el Bosque al Atardecer
+## Fecha
 
-### Breve Explicación del Mundo
-Este proyecto es una representación estilizada de un refugio sereno en la naturaleza. La escena se compone de una cabaña de madera situada en un claro del bosque, junto a una fogata crepitante y rodeada de vegetación. El objetivo principal del taller fue explorar cómo la **iluminación, los materiales y el color** interactúan para transformar por completo la atmósfera de un mundo virtual, pasando de un día apacible a un atardecer mágico.
+`2025-10-03`
 
-La escena también incluye elementos procedurales que demuestran la generación de texturas mediante código, integrándose de forma coherente con los modelos 3D y la paleta de colores definida.
+-----
 
----
+## Objetivo del Taller
+
+El objetivo de este taller fue diseñar y construir un mundo virtual tridimensional utilizando Three.js, con un enfoque central en la **interacción dinámica entre los materiales, la iluminación y el color**. Se buscó explorar cómo la apariencia y la atmósfera de una escena pueden ser transformadas drásticamente mediante la manipulación de luces, la aplicación de materiales PBR (Physically Based Rendering) y la generación de texturas procedurales, todo unificado bajo una paleta de colores coherente y justificada.
+
+## Mundo Realizado
+Este proyecto es una representación estilizada de un refugio sereno en la naturaleza. La escena se compone de una cabaña de madera situada en un claro del bosque, junto a una fogata crepitante y rodeada de vegetación. La escena también incluye elementos procedurales que demuestran la generación de texturas mediante código, integrándose de forma coherente con los modelos 3D y la paleta de colores definida.
 
 ### 1. Modelos GLB Usados
-Se utilizaron tres modelos principales para dar vida a la escena, cada uno representando una categoría distinta:
+Se utilizaron tres modelos principales, cada uno representando una categoría distinta:
 
 * **Modelo Arquitectónico:**
     * **Nombre:** `Log cabin.glb` (Cabaña de madera).
@@ -97,20 +101,152 @@ La paleta de colores fue cuidadosamente seleccionada para evocar una sensación 
 * **Justificación de Contraste (CIELAB):**
     Se utilizó una base de colores análogos fríos y de baja saturación (azul y verde) para crear una atmósfera tranquila. Para asegurar que la fogata fuera el punto focal indiscutible, se eligió un **naranja brillante (`#FF6700`)** como acento. Desde la perspectiva de **CIELAB**, este color tiene una alta **luminosidad (L\*)** y un fuerte componente en el eje **a\* (rojo)**, creando un contraste perceptual máximo tanto en brillo como en cromaticidad contra el fondo azul/verde. Esto dirige la atención del espectador de forma natural hacia el punto más cálido de la escena.
 
----
+-----
+
+## Conceptos Aprendidos
+
+Lista los principales conceptos aplicados:
+
+  - [x] **Transformaciones geométricas (escala, rotación, traslación):** Utilizadas para posicionar, orientar y escalar todos los modelos GLB (cabaña, naturaleza, fogata) y los objetos procedurales para componer la escena.
+  - [ ] Segmentación de imágenes
+  - [x] **Shaders y efectos visuales:** Se aplicaron shaders a través de:
+      - **Materiales PBR (`MeshStandardMaterial`):** Para simular realismo en la cabaña y otros objetos.
+      - **Materiales no iluminados (`MeshBasicMaterial`):** Para el Skydome, que no debe ser afectado por las luces de la escena.
+      - **Generación de texturas procedurales:** Creación de patrones de damero y bandas mediante la API de Canvas, demostrando la generación de shaders sin GLSL.
+  - [ ] Entrenamiento de modelos IA
+  - [ ] Comunicación por gestos o voz
+  - [x] **Otro: Iluminación Dinámica y PBR:** Se implementó un sistema de iluminación de 3 puntos con presets que alteran el color e intensidad de las luces y el cielo, demostrando un entendimiento profundo del renderizado basado en la física.
+  - [x] **Otro: Modelos de Color (HSV, CIELAB):** Se definió y justificó una paleta de colores usando conceptos de armonía (HSV) y contraste perceptual (CIELAB).
+
+-----
+
+## Herramientas y Entornos
+
+  - Three.js / Vite.js
+
+-----
+
+## Estructura del Proyecto
+
+La organización del proyecto sigue el estándar de un entorno de desarrollo con Vite y Three.js, separando el código fuente de los assets públicos y los resultados finales.
+
+```
+
+2025-10-03\_taller\_01\_mundo\_3d/
+├── public/             
+│   ├── glb\_models/      
+│   └── textures/        
+├── renders/             
+├── threejs/            
+└── README.md           
+
+```
+
+-----
+
+## Implementación
+
+El proceso de construcción de la escena se dividió en cuatro etapas principales:
+
+### Etapas realizadas
+
+1.  **Preparación de la Escena:** Se cargaron los tres modelos GLB principales (cabaña, naturaleza, fogata) y se ajustaron sus transformaciones para una composición coherente. Se configuró la escena base, el renderizador y las dos cámaras (perspectiva y ortográfica). Se añadió un Skydome para el fondo.
+
+2.  **Aplicación de Algoritmos y Materiales:** Se crearon las funciones `createCheckerboardTexture` y `createStripeTexture` para generar las texturas procedurales del suelo y del tótem. Se definieron los materiales PBR para los modelos y se implementó la lógica de los presets de iluminación (`setDayPreset`, `setSunsetPreset`) que modifican dinámicamente las propiedades de las luces y el material del cielo.
+
+3.  **Visualización e Interacción:** Se implementó el bucle de animación (`animate`) que integra los movimientos de la cámara, la luz principal y el tótem procedural. Se añadieron listeners de eventos para permitir al usuario alternar entre los presets de iluminación (teclas `1` y `2`) y las cámaras (tecla `C`).
+
+4.  **Guardado de Resultados:** Se realizaron capturas de pantalla desde ambas cámaras y con ambos presets de iluminación. Se grabó un GIF animado que demuestra todas las funcionalidades interactivas y dinámicas de la escena.
+
+### Código relevante
+
+El corazón del taller reside en la capacidad de transformar el ambiente de la escena de forma instantánea. La función `setSunsetPreset` encapsula esta lógica, alterando simultáneamente múltiples fuentes de luz y la textura del cielo para crear una atmósfera completamente nueva.
+
+```javascript
+function setSunsetPreset() {
+    // Cambia la luz principal a un tono naranja de atardecer
+    keyLight.color.setHex(0xde9937);
+    keyLight.intensity = 4.0;
+
+    // Ajusta la luz de relleno a un azul más oscuro
+    fillLight.color.setHex(0x4682b4);
+    fillLight.intensity = 0.6;
+
+    // Reduce la luz ambiental para un ambiente más oscuro
+    ambientLight.intensity = 0.2;
+
+    // Sincroniza el cielo, cambiando a la textura del atardecer
+    skyMaterial.map = sunsetSkyTexture;
+
+    console.log("Preset de Atardecer activado.");
+}
+```
+
+-----
+
+## Resultados Visuales
 
 ### Capturas de Pantalla y Video
 
-*(Aquí deberías insertar tus imágenes y un GIF animado o video)*
+**Vista en Perspectiva**
+![Vista General](renders/scene.png)
 
 **Vista en Perspectiva (Preset "Día")**
-`![Vista de Día](renders/captura_dia.png)`
+![Vista de Día](renders/dayScene.png)
 
 **Vista en Perspectiva (Preset "Atardecer")**
-`![Vista de Atardecer](renders/captura_atardecer.png)`
+![Vista de Atardecer](renders/afternoonScene.png)
 
 **Vista Ortográfica**
-`![Vista Ortográfica](renders/captura_ortografica.png)`
+![Vista Ortográfica](renders/OView.png)
 
 **Demostración Animada**
-`![GIF de la escena animada](renders/escena_animada.gif)`
+--
+<img src="renders/video.gif" width="800">
+
+-----
+
+## Prompts Usados
+
+Si bien no se utilizaron herramientas de IA para la generación de assets visuales finales (como texturas o modelos 3D), sí se utilizó un asistente de IA conversacional (Gemini) como herramienta de apoyo durante todo el ciclo de desarrollo.
+
+Los prompts se enfocaron en la resolución de problemas y la explicación de conceptos. Ejemplos del tipo de consultas realizadas incluyen:
+
+- **Conceptualización y Guía:**
+  - *"¿Qué pasos debo seguir para aplicar diferentes texturas a las distintas partes de un solo modelo GLB?"*
+  - *"Dame una estructura y consejos para redactar un `README.md` explicativo para este taller."*
+
+- **Generación de Código y Boilerplate:**
+  - *"Proporcióname el código inicial para un proyecto de Three.js usando Vite."*
+  - *"Muéstrame una función en JavaScript que genere una textura procedural de damero usando la API de Canvas."*
+
+- **Depuración de Errores (Debugging):**
+  - *"Mi modelo 3D se renderiza completamente en negro aunque hay luces en la escena, ¿cuáles son las causas más comunes y cómo puedo solucionarlo?"*
+  - *"Después de aplicar una textura, mi modelo se ve de un color sólido. ¿Qué significa y cómo puedo depurar si es un problema de UVs?"*
+
+-----
+
+## Reflexión Final
+
+Este taller fue una inmersión profunda y práctica en los conceptos que separan una escena 3D estática de un mundo virtual vivo y creíble. Reforcé mi entendimiento del flujo de trabajo PBR y la importancia de cada mapa de textura. El desafío de depurar los modelos 3D con problemas de UVs, aunque complejo, me enseñó a diagnosticar problemas de geometría y a entender la importancia de un buen pipeline de assets.
+La parte más interesante fue, sin duda, la implementación de los presets de iluminación. La creación de texturas procedurales también fue reveladora, mostrando una alternativa eficiente y creativa a las texturas basadas en imágenes.
+En futuros proyectos aplicaré un enfoque más metódico en la selección y justificación de paletas de color desde el inicio. Además, exploraría shaders procedurales más complejos, para simular efectos naturales como el viento en los árboles o el parpadeo del fuego. Este taller me ha dado una base sólida para crear experiencias web 3D más inmersivas y artísticamente dirigidas.
+
+-----
+
+## Contribuciones Grupales
+
+Taller realizado de forma individual.
+
+-----
+
+## Checklist de Entrega
+
+  - [x] Carpeta `2025-10-03_taller_materiales_iluminacion_color`
+  - [x] Código limpio y funcional en la carpeta `threejs/`
+  - [x] GIF incluido con nombre descriptivo en la carpeta `resultados/`
+  - [x] Visualizaciones o capturas exportadas en la carpeta `resultados/`
+  - [x] README completo y claro
+  - [x] Commits descriptivos en inglés
+
+-----
