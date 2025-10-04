@@ -1,0 +1,34 @@
+# Archivos de log generados por Node o gestores de paquetes
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Carpeta de dependencias
+# Esta es la más importante. Contiene cientos de megabytes de librerías
+# que se pueden reinstalar en cualquier momento ejecutando "npm install".
+/node_modules
+
+# Carpeta de compilación de Vite
+# Contiene la versión final y optimizada de tu aplicación.
+# Se genera automáticamente al ejecutar "npm run build".
+/dist
+
+# Archivos de entorno
+# Nunca subas archivos .env, ya que pueden contener claves de API u otra información sensible.
+.env
+.env.local
+.env.*.local
+
+# Archivos de caché y configuración de editores de código
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Archivos generados por el sistema operativo
+.DS_Store
+Thumbs.db
