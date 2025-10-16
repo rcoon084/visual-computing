@@ -1,0 +1,103 @@
+# #####################################################################
+# ### Archivo .gitignore para Taller de Computación Visual & 3D     ###
+# ### Cubre: Python, Unity, Node.js (Three.js) y archivos comunes ###
+# #####################################################################
+
+# --- Python ---
+# Entornos virtuales
+venv/
+env/
+.venv/
+*/.venv/
+
+# Cache y archivos compilados
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints
+
+# Archivos de distribución y compilación
+build/
+dist/
+*.egg-info/
+*.egg
+
+# --- Unity ---
+# Carpetas generadas por Unity que no deben ser versionadas
+Library/
+Temp/
+Obj/
+Logs/
+MemoryCaptures/
+UserSettings/
+
+# Carpetas de builds
+Build/
+Builds/
+Output/
+
+# Archivos de Visual Studio / Rider
+*.sln
+*.suo
+*.csproj
+*.unityproj
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# --- Node.js (para Three.js / React Three Fiber) ---
+# Dependencias
+node_modules/
+
+# Archivos de log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Directorios de build y producción
+dist/
+.next/
+out/
+
+# Archivos de entorno local (¡Nunca subir secretos!)
+.env
+.env.local
+.env.*.local
+! .env.example
+
+# --- Archivos de Sistema Operativo y Editores ---
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# IDEs y editores de código
+.idea/
+.vscode/
+*.swp
+*~
+
+# --- Assets y otros archivos grandes ---
+# Descomenta las siguientes líneas si no quieres versionar
+# modelos 3D pesados o videos, y prefieres usar Git LFS.
+# *.obj
+# *.fbx
+# *.stl
+# *.gltf
+# *.glb
+# *.mp4
