@@ -14,6 +14,20 @@ Los ejercicios se pueden desarrollar utilizando una combinación de **Python con
 
 ### Ejercicio 1 — Árbol del Movimiento (Jerarquías y Transformaciones)
 
+* **¿Qué hice y por qué?**  
+Construí una jerarquía de objetos 3D con padre, hijo y nieto, para visualizar cómo las transformaciones aplicadas al padre afectan a los descendientes. Usé sliders para controlar rotación y traslación del padre, permitiendo observar la herencia de transformaciones en tiempo real. De igual forma, usé sliders para controlar la rotación y translación del hijo, con le objetivo de demostrar como funcionan la jerarquías. Esta práctica facilita la comprensión de la composición de transformaciones y su acumulación en escenas 3D.
+
+* **Evidencia:**  
+![GIF JERARQUIAS](./gifs/jerarquias_y_transformaciones.gif)
+
+* **Código / Escena:**  
+[Enlace al proyecto Three.js](./ejercicios/01_jerarquias_transformaciones/src/App.jsx)  
+
+* **Prompts utilizados:**  
+No se utilizaron prompts para este ejercicio. 
+
+* **Comentarios personales:**  
+Aprendí cómo cada transformación del padre se propaga a los hijos y la importancia de jerarquías bien estructuradas. Un reto fue mantener la sincronización de animaciones entre niveles. Mejoras futuras incluyen agregar controles de escalado y animaciones más complejas.
 
 ### Ejercicio 2 — Ojos Digitales (Filtros y Bordes con OpenCV)
   - **Explicación:** Se implementó un sistema de procesamiento de imágenes que simula diferentes tipos de "visión digital" aplicando filtros y técnicas de detección de bordes. El ejercicio incluye la aplicación de filtros de suavizado (Gaussian Blur), realce (Sharpen), y detección de bordes usando operadores Sobel y Laplaciano. Cada filtro produce una representación diferente de la imagen original, mostrando cómo diferentes algoritmos pueden extraer información visual específica.
@@ -72,6 +86,35 @@ Los ejercicios se pueden desarrollar utilizando una combinación de **Python con
 
 ### Ejercicio 5 — Rasterización desde Cero (Línea, Círculo, Triángulo)
 
+* **¿Qué hice y por qué?**  
+Implementé algoritmos clásicos de rasterización: Bresenham para líneas, punto medio para círculos y scanline para relleno de triángulos, usando únicamente NumPy y Pillow. El objetivo fue entender cómo se dibujan primitivas en píxeles y comparar la eficiencia y precisión de cada método.
+
+* **Evidencia:**  
+
+<figure>
+  <img src="./assets/05_raterizacion_clasica/raster_linea.png" alt="Raster Línea">
+  <figcaption>Raster Línea</figcaption>
+</figure>
+
+<figure>
+  <img src="./assets/05_raterizacion_clasica/raster_circulo.png" alt="Raster Círculo">
+  <figcaption>Raster Círculo</figcaption>
+</figure>
+
+<figure>
+  <img src="./assets/05_raterizacion_clasica/raster_triangulo.png" alt="Raster Triángulo">
+  <figcaption>Raster Triángulo</figcaption>
+</figure>
+
+
+* **Código / Notebook:**  
+[Enlace al script Python](./ejercicios/05_rasterizacion_clasica/rasterizacion.py)  
+
+* **Prompts utilizados:**  
+No se utilizaron prompts para este ejercicio.
+
+* **Comentarios personales:**  
+Noté que Bresenham es muy preciso y rápido para líneas, mientras que el scanline requiere más cuidado para triángulos irregulares. De forma general, las líneas generadas con los algoritmos programados son un poco más bruscas o irrgulares que cuando se generan con librerias especializadas, por lo que futuras mejoras podrían incluir optimización con Cython o integración de anti-aliasing.
 
 ### Ejercicio 6 — Análisis Geométrico (Centroide, Área, Perímetro)
   - **Explicación:** Se desarrolló un sistema de análisis geométrico que extrae propiedades cuantitativas de formas en imágenes. El proceso incluye binarización automática usando el método de Otsu, detección de contornos, y cálculo de métricas geométricas fundamentales como área, perímetro y centroide para cada forma detectada. Los resultados se visualizan con anotaciones superpuestas y se exportan a formato CSV para análisis posterior.
@@ -179,6 +222,54 @@ La idea es reemplazar el modelado manual por reglas y datos programables, lo que
 
 ### Ejercicio 9 — Filtro Visual (Convoluciones Personalizadas)
 
+* **¿Qué hice y por qué?**  
+Implementé convolución 2D manual y comparé los resultados con `cv2.filter2D`. Diseñé tres kernels: sharpen, blur y detección de bordes. 
+
+* **Evidencia:**  
+
+<figure>
+  <img src="./assets/09_convoluciones_personalizadas/original.png" alt="Original">
+  <figcaption>Original</figcaption>
+</figure>
+
+<figure>
+  <img src="./assets/09_convoluciones_personalizadas/blur_manual.png" alt="Blur Manual">
+  <figcaption>Blur Manual</figcaption>
+</figure>
+
+<figure>
+  <img src="./assets/09_convoluciones_personalizadas/blur_opencv.png" alt="Blur OpenCV">
+  <figcaption>Blur OpenCV</figcaption>
+</figure>
+
+<figure>
+  <img src="./assets/09_convoluciones_personalizadas/edge_manual.png" alt="Edge Manual">
+  <figcaption>Edge Manual</figcaption>
+</figure>
+
+<figure>
+  <img src="./assets/09_convoluciones_personalizadas/edge_opencv.png" alt="Edge OpenCV">
+  <figcaption>Edge OpenCV</figcaption>
+</figure>
+
+<figure>
+  <img src="./assets/09_convoluciones_personalizadas/sharpen_manual.png" alt="Sharpen Manual">
+  <figcaption>Sharpen Manual</figcaption>
+</figure>
+
+<figure>
+  <img src="./assets/09_convoluciones_personalizadas/sharpen_opencv.png" alt="Sharpen OpenCV">
+  <figcaption>Sharpen OpenCV</figcaption>
+</figure>
+
+* **Código / Notebook:**  
+[Enlace al script Python](./ejercicios/09_convoluciones_personalizadas/convolucion.py)  
+
+* **Prompts utilizados:**  
+No se utilizaron prompts para este ejercicio. La imagen se obtuvo de internet.   
+
+* **Comentarios personales:**  
+Aprendí la importancia de la normalización y el manejo de bordes (padding) en convoluciones. Un reto fue evitar saturación de píxeles en kernels fuertes. A su vez, tambien fue un reto escoger la cantidad de bits para representar los números con el fin de evitar desbordamiento y garantizar una buena calidad de convolución. Mejoras futuras podrían incluir kernels dinámicos y filtros no lineales. 
 
 ### Ejercicio 10 — Explorando el Color (RGB, HSV, CIE Lab + Simulaciones)
   - **Explicación:** Se desarrolló un sistema completo de análisis y manipulación de color que explora diferentes espacios de color y simula condiciones de percepción visual. El ejercicio incluye conversiones entre espacios RGB, HSV y CIE Lab, análisis de canales individuales, y simulaciones de daltonismo (protanopia y deuteranopia) además de efectos de iluminación y temperatura de color.
