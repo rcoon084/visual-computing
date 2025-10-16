@@ -48,6 +48,10 @@ Los ejercicios se pueden desarrollar utilizando una combinación de **Python con
   - Histogramas de intensidades
   - Ajuste de brillo y contraste
 
+- **Código Fuente:** ejercicios/04_imagen_matriz_pixeles/
+
+- **Comentarios Personales:** Trabajar este ejercicio me permitió entender que una imagen digital no es más que una matriz de valores que pueden manipularse de forma matemática. Separar los canales RGB y HSV me ayudó a visualizar cómo se componen los colores y cómo pequeños cambios en un canal alteran significativamente la imagen.  
+
 - **Evidencia:** 
   - Separación de canales RGB:
     <div align="center">
@@ -147,12 +151,15 @@ La idea es reemplazar el modelado manual por reglas y datos programables, lo que
     - Mapea arrays/JSON a `<mesh>` dinámicos.
     - Control de parámetros con **Leva GUI**.
     - Ideal para visualización interactiva en web.
-    
+
   - **Unity**
     - Usa `GameObject.CreatePrimitive()` en tiempo de ejecución.
     - Lee datos desde listas o JSON.
     - Permite UI para regenerar escenas o cambiar parámetros.
 
+- **Código Fuente:** ejercicios/08_escenas_parametricas/
+
+- **Comentarios Personales:** Este ejercicio me ayudo a entender la generación procedural, entendiendo que los objetos 3D pueden crearse no desde el modelado manual, sino a partir de datos estructurados. 
 
 - **Evidencia:**
     - **Python:**
@@ -232,6 +239,10 @@ La aplicación es robusta ante oclusiones parciales, pero se recomienda mantener
   - Apuntando: Blanco
   - Puño: Magenta
   - Tres dedos: Naranja
+
+- **Código Fuente:** ejercicios/12_gestos_webcam_mediapipe/
+
+- **Comentarios Personales:** Me ayudo a conocer y entender cómo se construyen modelos de visión artificial basados en landmarks. El conteo de dedos, la medición de distancias y el mapeo de gestos hacia acciones (como cambiar color o mover un objeto) demostraron el potencial de la interacción sin contacto.
 
 - **Evidencia:** 
 <div align="center">
