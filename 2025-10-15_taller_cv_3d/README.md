@@ -16,7 +16,15 @@ Los ejercicios se pueden desarrollar utilizando una combinación de **Python con
 
 
 ### Ejercicio 2 — Ojos Digitales (Filtros y Bordes con OpenCV)
-
+  - **Explicación:** Se implementó un sistema de procesamiento de imágenes que simula diferentes tipos de "visión digital" aplicando filtros y técnicas de detección de bordes. El ejercicio incluye la aplicación de filtros de suavizado (Gaussian Blur), realce (Sharpen), y detección de bordes usando operadores Sobel y Laplaciano. Cada filtro produce una representación diferente de la imagen original, mostrando cómo diferentes algoritmos pueden extraer información visual específica.
+  - **Técnicas aplicadas:**
+    - **Conversión a escala de grises:** Transformación del espacio de color RGB a escala de grises
+    - **Filtro Gaussiano:** Suavizado de la imagen para reducir ruido
+    - **Filtro de realce:** Kernel personalizado para aumentar el contraste local
+    - **Operador Sobel:** Detección de bordes en direcciones X e Y
+    - **Operador Laplaciano:** Detección de bordes usando la segunda derivada
+  - **Código Fuente:** ejercicios/02_ojos_digitales_opencv/
+  - **Comentarios Personales:** Este ejercicio fue fundamental para entender cómo diferentes filtros pueden "ver" aspectos distintos de una imagen. La comparación entre Sobel y Laplaciano mostró cómo cada método tiene sus fortalezas: Sobel es más robusto al ruido, mientras que Laplaciano detecta mejor los detalles finos. La aplicación práctica de estos conceptos en visión artificial es enorme.
 
 ### Ejercicio 3 — Segmentando el Mundo (Binarización y Contornos)
   - **Explicación:** Se implementó un pipeline en Python con OpenCV para segmentar formas geométricas. El proceso incluyó la comparación entre umbralización fija y adaptativa para binarizar la imagen, siendo la adaptativa más robusta. Posteriormente, se utilizó `findContours` para detectar cada forma, calcular sus propiedades (centroide, área, perímetro) y, como bonus, clasificarlas (triángulo, cuadrado, etc.) según el número de vértices obtenidos con `cv2.approxPolyDP`.
@@ -62,7 +70,19 @@ Los ejercicios se pueden desarrollar utilizando una combinación de **Python con
 
 
 ### Ejercicio 6 — Análisis Geométrico (Centroide, Área, Perímetro)
-
+  - **Explicación:** Se desarrolló un sistema de análisis geométrico que extrae propiedades cuantitativas de formas en imágenes. El proceso incluye binarización automática usando el método de Otsu, detección de contornos, y cálculo de métricas geométricas fundamentales como área, perímetro y centroide para cada forma detectada. Los resultados se visualizan con anotaciones superpuestas y se exportan a formato CSV para análisis posterior.
+  - **Métricas calculadas:**
+    - **Área:** Número de píxeles dentro del contorno usando `cv2.contourArea()`
+    - **Perímetro:** Longitud del contorno usando `cv2.arcLength()`
+    - **Centroide:** Centro de masa calculado mediante momentos de imagen (`cv2.moments()`)
+    - **Anotaciones visuales:** Etiquetas superpuestas mostrando las métricas en tiempo real
+  - **Técnicas aplicadas:**
+    - **Binarización de Otsu:** Umbralización automática adaptativa
+    - **Detección de contornos:** `cv2.findContours()` con modo externo
+    - **Cálculo de momentos:** Para determinar propiedades geométricas
+    - **Exportación de datos:** Generación de archivos CSV con métricas
+  - **Código Fuente:** ejercicios/06_analisis_figuras_geometricas/
+  - **Comentarios Personales:** Este ejercicio demostró la potencia del análisis cuantitativo en visión artificial. La capacidad de extraer datos precisos de formas geométricas abre posibilidades enormes para aplicaciones como control de calidad, medición automatizada y reconocimiento de patrones. La integración entre procesamiento visual y análisis de datos fue especialmente reveladora.
 
 ### Ejercicio 7 — Importando el Mundo (OBJ/STL/GLTF)
   - **Explicación:** Se desarrolló una aplicación dual para comparar los formatos 3D OBJ, STL y GLTF. Primero, un script de Python con `trimesh` se usó para analizar y convertir un modelo base a los tres formatos. Segundo, se construyó un visualizador web interactivo con Three.js y React (R3F) que permite cargar y alternar entre los modelos para observar directamente las diferencias en materiales, texturas y optimización.
@@ -144,6 +164,23 @@ La idea es reemplazar el modelado manual por reglas y datos programables, lo que
 
 
 ### Ejercicio 10 — Explorando el Color (RGB, HSV, CIE Lab + Simulaciones)
+  - **Explicación:** Se desarrolló un sistema completo de análisis y manipulación de color que explora diferentes espacios de color y simula condiciones de percepción visual. El ejercicio incluye conversiones entre espacios RGB, HSV y CIE Lab, análisis de canales individuales, y simulaciones de daltonismo (protanopia y deuteranopia) además de efectos de iluminación y temperatura de color.
+  - **Espacios de color explorados:**
+    - **RGB:** Espacio de color aditivo basado en rojo, verde y azul
+    - **HSV:** Representación basada en tono (Hue), saturación (Saturation) y valor (Value)
+    - **CIE Lab:** Espacio de color perceptualmente uniforme con luminancia y coordenadas cromáticas
+  - **Simulaciones implementadas:**
+    - **Protanopia:** Simulación de ceguera al rojo usando matriz de transformación específica
+    - **Deuteranopia:** Simulación de ceguera al verde con matriz de transformación adaptada
+    - **Condiciones de baja iluminación:** Ajuste de gamma y reducción de intensidad
+    - **Temperatura de color:** Modificación de canales para simular iluminación cálida
+  - **Técnicas aplicadas:**
+    - **Separación de canales:** Análisis individual de cada componente de color
+    - **Transformaciones matriciales:** Para simular deficiencias de color
+    - **Ajuste de gamma:** Para simular condiciones de iluminación
+    - **Manipulación de temperatura:** Ajuste de balance de blancos
+  - **Código Fuente:** ejercicios/10_modelos_color_percepcion/
+  - **Comentarios Personales:** Este ejercicio fue fascinante para entender cómo percibimos el color y cómo diferentes espacios de color sirven para diferentes propósitos. Las simulaciones de daltonismo fueron especialmente impactantes, mostrando cómo una parte significativa de la población ve el mundo de manera diferente. La comprensión de estos conceptos es crucial para diseñar interfaces accesibles y aplicaciones de visión artificial robustas.
 
 
 ### Ejercicio 11 — Proyecciones 3D (Perspectiva vs Ortográfica)
