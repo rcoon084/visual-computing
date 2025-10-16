@@ -147,6 +147,11 @@ La idea es reemplazar el modelado manual por reglas y datos programables, lo que
     - Mapea arrays/JSON a `<mesh>` dinámicos.
     - Control de parámetros con **Leva GUI**.
     - Ideal para visualización interactiva en web.
+    
+  - **Unity**
+    - Usa `GameObject.CreatePrimitive()` en tiempo de ejecución.
+    - Lee datos desde listas o JSON.
+    - Permite UI para regenerar escenas o cambiar parámetros.
 
 
 - **Evidencia:**
@@ -158,6 +163,11 @@ La idea es reemplazar el modelado manual por reglas y datos programables, lo que
       <div align="center">
       <img src="gifs/EvidenciaEjercicio8_2.gif" alt="GIF Detección de gestos con webcam" width="350">
       </div>
+    - **Unity:**
+      <div align="center">
+      <img src="gifs/EvidenciaEjercicio8_3.gif" alt="GIF Detección de gestos con webcam" width="350">
+      </div>
+    
     
 
 ### Ejercicio 9 — Filtro Visual (Convoluciones Personalizadas)
