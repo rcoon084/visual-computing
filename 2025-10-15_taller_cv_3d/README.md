@@ -29,7 +29,34 @@ Los ejercicios se pueden desarrollar utilizando una combinación de **Python con
   - **Comentarios Personales:** Este ejercicio fue clave para entender la segmentación. La superioridad de la umbralización adaptativa en condiciones de luz variables fue una lección importante. La capacidad de extraer datos cuantitativos y clasificar formas a partir de contornos me pareció una herramienta de visión artificial increíblemente potente y fundamental.
 
 ### Ejercicio 4 — Imagen = Matriz (Canales, Slicing, Histogramas)
+- **Objetivo :** Manipular directamente los píxeles y regiones de una imagen para comprender la representación matricial y los efectos del procesamiento básico.
 
+- **Conceptos aplicados:**
+  - Separación de canales (RGB y HSV) Se descompone la imagen en sus tres componentes de color:
+    - RGB: Rojo, Verde y Azul.
+    - HSV: Tono (Hue), Saturación y Valor (Brillo).
+  - Edición de regiones por slicing
+  - Cambio de color local
+  - Histogramas de intensidades
+  - Ajuste de brillo y contraste
+
+- **Evidencia:** 
+  - Separación de canales RGB:
+    <div align="center">
+    <img src="ejercicios/04_imagen_matriz_pixeles/channels_rgb.png" alt="Separación de canales RGB" width="800">
+    </div>
+  - Separación de canales HSV:
+    <div align="center">
+    <img src="ejercicios/04_imagen_matriz_pixeles/channels_hsv.png" alt="Separación de canales HSV" width="800">
+    </div>
+  - Comparación de versiones.
+    <div align="center">
+    <img src="ejercicios/04_imagen_matriz_pixeles/before_after.png" alt="Separación de canales RGB" width="800">
+    </div>
+  - Histogramas de intensidades
+    <div align="center">
+    <img src="ejercicios/04_imagen_matriz_pixeles/histograms.png" alt="Separación de canales RGB" width="800">
+    </div>
 
 ### Ejercicio 5 — Rasterización desde Cero (Línea, Círculo, Triángulo)
 
@@ -86,7 +113,32 @@ Los ejercicios se pueden desarrollar utilizando una combinación de **Python con
   - **Comentarios Personales:** Fue muy revelador ver en la práctica por qué **GLTF** es el estándar para la web: es eficiente y autocontenido. **STL** demostró su propósito para geometría pura (impresión 3D) al perder toda la información visual, mientras que **OBJ** funciona como un intermediario universal pero menos optimizado. Este ejercicio solidificó mi criterio para elegir el formato correcto según el caso de uso.
 
 ### Ejercicio 8 — Escenas Paramétricas (Objetos desde Datos)
+  - **Explicación:**  Generar geometría (objetos 3D) automáticamente a partir de listas o archivos estructurados (CSV/JSON), parametrizando propiedades como posición, escala y color.
+La idea es reemplazar el modelado manual por reglas y datos programables, lo que permite generar escenas flexibles y reproducibles.
 
+- **Entornos**
+
+  - **Python (Vedo / Trimesh)**
+    - Crea primitivas (Cube, Sphere, Cone) desde datos.
+    - Aplica transformaciones y exporta a `.OBJ`, `.STL` y `.GLTF`.
+    - Ideal para scripting y exportación rápida.
+
+  - **Three.js (React Three Fiber)**
+    - Mapea arrays/JSON a `<mesh>` dinámicos.
+    - Control de parámetros con **Leva GUI**.
+    - Ideal para visualización interactiva en web.
+
+
+- **Evidencia:**
+    - **Python:**
+      <div align="center">
+      <img src="gifs/EvidenciaEjercicio8_1.gif" alt="GIF Detección de gestos con webcam" width="350">
+      </div>
+    - **Three.js:**
+      <div align="center">
+      <img src="gifs/EvidenciaEjercicio8_2.gif" alt="GIF Detección de gestos con webcam" width="350">
+      </div>
+    
 
 ### Ejercicio 9 — Filtro Visual (Convoluciones Personalizadas)
 
@@ -105,7 +157,39 @@ Los ejercicios se pueden desarrollar utilizando una combinación de **Python con
   - **Comentarios Personales:** La lección más impactante fue entender que la elección de la cámara no es una decisión técnica, sino una de diseño que define por completo la percepción del usuario. Este ejercicio práctico hizo tangible la diferencia entre crear una experiencia inmersiva y cinemática (perspectiva) versus una representación técnica y precisa (ortográfica).
 
 ### Ejercicio 12 — Gestos con Webcam (MediaPipe Hands)
+- **Explicación:** El objetivo del proyecto es capturar gestos de la mano mediante una cámara web y utilizarlos para interactuar con distintas escenas visuales (menú, control de color y juego).
+Esto combina visión artificial, procesamiento de landmarks (puntos de referencia) y programación interactiva con Python.
 
+- **Estructura general:** La aplicación se organiza alrededor de la clase GestureController, la cual gestiona:
+  - Captura de video y detección de manos.
+  - Identificación de gestos mediante landmarks.
+  - Transición entre tres escenas interactivas:
+    - MENU (inicio)
+    - COLOR_CONTROL (control de color con gestos)
+    - GAME (minijuego de objetivos)
+
+- **Rendimiento:** Dedepende directamente de la iluminación, resolución de la cámara y potencia del CPU/GPU.
+En condiciones normales (720p, 30 fps), el procesamiento de MediaPipe mantiene una latencia de 30–50 ms, suficiente para una interacción fluida.
+Sin embargo, movimientos muy rápidos o iluminación deficiente pueden degradar la detección de landmarks.
+La aplicación es robusta ante oclusiones parciales, pero se recomienda mantener la mano completa dentro del cuadro y con buena visibilidad.
+
+- **Minijuego interactivo**
+  - En la escena GAME:
+  - El círculo verde sigue la posición de la mano (landmark índice MCP).
+  - Se generan círculos azules aleatorios como objetivos.
+  - Al colisionar con uno, se gana un punto y el objetivo desaparece.
+  - Al completar todos, se generan nuevos automáticamente.
+
+- **Controles de color**
+  - Paz: Amarillo
+  - Apuntando: Blanco
+  - Puño: Magenta
+  - Tres dedos: Naranja
+
+- **Evidencia:** 
+<div align="center">
+  <img src="gifs/EvidenciaEjercicio12.gif" alt="GIF Detección de gestos con webcam" width="350">
+</div>
 
 -----
 
