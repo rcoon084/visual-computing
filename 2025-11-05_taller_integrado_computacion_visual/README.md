@@ -31,10 +31,15 @@ This section documents the techniques implemented for each activity in the works
 
 ### 2. Procedural Modeling from Code
 
-
 ---
 
 ###  3. Custom Shaders and Effects
+
+* **Description:** Explored artistic and dynamic rendering by creating three custom shaders using Unity's Shader Graph.
+    * **`ColorDinamico_Shader` (Unlit):** A dynamic shader that changes the object's color based on its **UV coordinates** (a vertical gradient) and **Time** (a pulsing sine wave).
+    * **`Toon_Shader` (Unlit):** A non-photorealistic (NPR) shader that creates a cel-shaded "cartoon" look. It calculates light manually using `Dot Product` and a `Step` node to create hard bands of light and shadow.
+    * **`Distortion_Shader` (Unlit):** An effect shader that creates a "mirage" or "underwater" effect. It uses animated `Simple Noise` to dynamically displace the texture's UV coordinates over time.
+
 
 ---
 
@@ -101,6 +106,14 @@ public class ControlCamaras : MonoBehaviour
     }
 }
 ````
+
+### Custom Shaders (Point 3)
+![Evidence point 3](./media/ColorDinamico.png)
+---
+![Evidence point 3](./media/DynamicTexture.png)
+---
+![Evidence point 3](./media/Toon.png)
+
 -----
 
 ## 5\. Graphic Evidence (Renders)
@@ -108,10 +121,18 @@ public class ControlCamaras : MonoBehaviour
 ### PBR & Lighting (Point 1)
 ![Evidence point 1](./media/point1.gif)
 
-## 6\. Reflection
+### Custom Shaders (Point 3)
+![Evidence point 3](./media/point3-colors.gif)
+---
+![Evidence point 3](./media/point3-texture.gif)
+---
+![Evidence point 3](./media/point3-toon.gif)
 
+## 6\. Reflection
 
   * **Learnings:**
   * **Technical Challenges:**
   * **Possible Improvements:**
+
+
 
