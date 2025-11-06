@@ -50,182 +50,6 @@ This section documents the techniques implemented for each activity in the works
 ---
 
 ###  4. Dynamic Texturing and Particles
----
-
-### 5. 360° Image and Video Visualization
-
-* **Description:** Developed an immersive 360° environment in **Unity 3D** using panoramic media as dynamic textures. The goal was to simulate spatial exploration and real-time scene switching using equirectangular projections and custom camera controls.
-
-* **`SkySphere_360` (Unity):** Implemented an inverted sphere mesh to display 360° equirectangular images mapped as unlit textures, ensuring seamless panoramic projection.  
-* **`VideoPlayer_360` (Unity):** Integrated Unity’s `VideoPlayer` component to render spherical 360° video content on the sky dome, enabling dynamic, animated backgrounds.  
-* **`OrbitCamera_Controller` (C#):** Created a custom script allowing the user to freely rotate the view using mouse input (and optionally gyroscope), enhancing immersion and exploration.
-
----
-
-### 6. Input and Interaction (UI, Input, Collisions)
-
----
-
-### 7. Gestures with Webcam (MediaPipe Hands)
-
----
-
-###  8. Voice Recognition and Command Control
-
----
-
-###  9. Multimodal Interfaces (Voice + Gestures)
----
-
-### 10. BCI Simulation (Synthetic EEG and Control)
-
-* **Description:** Simulated a Brain–Computer Interface (BCI) using synthetic EEG signals processed in real time to control visual feedback through **PyGame**. The project modeled cognitive interaction by mapping neural activity levels to visual parameters such as color intensity.
-
-* **`EEG_Signal_Generator` (Python):** Produces artificial EEG data composed of sine waves (Alpha band 8–13 Hz) mixed with Gaussian noise to simulate brainwave variability.  
-* **`AlphaBand_Filter` (SciPy):** Applies a Butterworth band-pass filter to extract Alpha frequency components, computing their energy as a control metric for attention or activation.  
-* **`EEG_Visualizer` (PyGame):** Translates EEG energy levels into dynamic color transitions — higher Alpha activity results in brighter, more vivid hues, representing increased mental engagement.
-
----
-
-### 11. Projective Spaces and Projection Matrices
-* **Description:** This module was split into two parts: theory and practice, demonstrating how 3D is projected onto a 2D screen.
-    * **Theory (Python):** Implemented orthographic and perspective projection matrices from scratch using NumPy. This demonstrated mathematically how homogeneous coordinates (specifically, dividing by the `w` component) create perspective, causing distant objects to appear smaller.
-    * **Practice (Unity):** Created a "Depth Visualizer" shader (`Depth_Shader`) using Shader Graph. This `Unlit` shader uses the `Scene Depth` node to map distance (from near=black to far=white), visually demonstrating the Z-buffer.
-    * **Integration:** The camera toggle script (from Point 1) was used to switch between perspective and orthographic cameras, showing how the depth visualization changes, which visually confirms the mathematical differences implemented in the Python script.
-
----
-
-## 4. Key Code Snippets
-
-### Camera Controller (Point 1)
-
-```csharp
-// File: ControlCamaras.cs
-// Toggles between two cameras (perspective and orthographic) when the 'C' key is pressed.
-
-using UnityEngine;
-
-public class ControlCamaras : MonoBehaviour
-{
-    public Camera camaraPerspectiva;
-    public Camera camaraOrtografica;
-
-    void Start()
-    {
-        camaraPerspectiva.enabled = true;
-        camaraOrtografica.enabled = false;
-    }
-
-    void Update()
-    {
-        // Check if the 'C' key was pressed
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            // Invert the 'enabled' state of both cameras
-            camaraPerspectiva.enabled = !camaraPerspectiva.enabled;
-            camaraOrtografica.enabled = !camaraOrtografica.enabled;
-        }
-    }
-}
-````
-
-### 360° image and video viewing (Point 5)
-
-```csharp
-using UnityEngine;
-
-public class OrbitCamera : MonoBehaviour
-{
-    public float sensitivity = 2f;
-    private float rotationX = 0f;
-    private float rotationY = 0f;
-
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
-    void Update()
-    {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
-
-        rotationX += mouseX;
-        rotationY -= mouseY;
-
-        rotationY = Mathf.Clamp(rotationY, -90f, 90f);
-
-        // Aplicar rotación a la cámara
-        transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
-    }
-}
-
-````
-
-### Custom Shaders (Point 3)
-![Evidence point 3](./media/ColorDinamico.png)
----
-![Evidence point 3](./media/DynamicTexture.png)
----
-![Evidence point 3](./media/Toon.png)
-
-### Projection Matrices (Point 11 - Python)
-```python
-# File: python/projection_matrices.py
-# Implements perspective projection matrix from scratch.
-
-import numpy as np
-
-# ... (parameter setup) ...
-
-# Fórmula de la matriz de Perspectiva
-M_persp = np.array([
-    [t_calc/aspecto, 0, 0,                               0],
-    [0,              t_calc, 0,                               0],
-    [0,              0,      (f_persp+n_persp)/(n_persp-f_persp), (2*f_persp*n_persp)/(n_persp-f_persp)],
-    [0,              0,      -1,                              0] # ¡El truco! Pone -Z en el valor W
-])
-
-# Aplicamos la matriz
-p_clip_persp = M_persp @ p_mundo
-
-# La "División de Perspectiva" es dividir (x, y, z) por 'w'.
-w = p_clip_persp[3]
-p_ndc_persp = p_clip_persp[:3] / w
-```
-### Projection Matrices (Point 11 - Unity)
-![Evidence point 11](./media/Punto11.png)
------
-
-## 5\. Graphic Evidence (Renders)
-
-### PBR & Lighting (Point 1)
-![Evidence point 1](./media/point1.gif)
-
-### Procedural modeling from code (Point 2)
-![alt text](media/2_Modelado_procedural_desde_codigo.gif)
-
-### 360° image and video viewing (Point 5)
-
-#### view node
-![alt text](media/point_5_1.PNG)
-![alt text](media/5_Visualización_de_imágenes_y_video_360°.gif)
-
-### Custom Shaders (Point 3)
-![Evidence point 3](./media/point3-colors.gif)
----
-![Evidence point 3](./media/point3-texture.gif)
----
-![Evidence point 3](./media/point3-toon.gif)
-
-### BCI simulation (synthetic EEG and control) (Point 10)
-![alt text](media/10_Simulacion_BCI.gif)
-
-### Projection Matrices (Point 11)
-![Evidence point 11](./media/point11.gif)
-
-# Módulo 4: Texturizado Dinámico y Partículas
 
 ## Descripción
 
@@ -379,7 +203,18 @@ void main() {
 
 ---
 
-# Módulo 6: Entrada e Interacción (UI, Input y Colisiones)
+
+### 5. 360° Image and Video Visualization
+
+* **Description:** Developed an immersive 360° environment in **Unity 3D** using panoramic media as dynamic textures. The goal was to simulate spatial exploration and real-time scene switching using equirectangular projections and custom camera controls.
+
+* **`SkySphere_360` (Unity):** Implemented an inverted sphere mesh to display 360° equirectangular images mapped as unlit textures, ensuring seamless panoramic projection.  
+* **`VideoPlayer_360` (Unity):** Integrated Unity’s `VideoPlayer` component to render spherical 360° video content on the sky dome, enabling dynamic, animated backgrounds.  
+* **`OrbitCamera_Controller` (C#):** Created a custom script allowing the user to freely rotate the view using mouse input (and optionally gyroscope), enhancing immersion and exploration.
+
+---
+
+### 6. Input and Interaction (UI, Input, Collisions)
 
 ## Descripción
 
@@ -581,11 +416,499 @@ npx http-server
 Luego acceder a `http://localhost:8000/04_texturizado_dinamico_particulas/` o `http://localhost:8000/06_entrada_interaccion/`
 
 
+---
+
+### Exercise 7 — Webcam Gestures (MediaPipe + OpenCV)
+
+**Summary:** Four operating modes:
+- **Mode 1:** Hand detection and rendering
+- **Mode 2:** Finger counting and basic gesture recognition
+- **Mode 3:** Gesture-triggered actions (zoom, confetti, tracking)
+- **Mode 4:** *Bubble Pop* game controlled by pinch gestures
+
+#### Structure
+
+MediaPipe Hands and OpenCV capture webcam input. Each mode is a separate function with a menu for selection. Keypoints (landmarks) infer finger positions and spatial relationships for gesture detection.
+
+#### Key Functions
+
+**MediaPipe Setup**
+```python
+mp_hands = mp.solutions.hands
+mp_draw = mp.solutions.drawing_utils
+FINGER_TIPS = [4, 8, 12, 16, 20]
+```
+
+**Coordinate Conversion**
+```python
+def landmark_to_pixel(lm, w, h): 
+    return int(lm.x * w), int(lm.y * h)
+
+def euclidean(a, b): 
+    return np.hypot(a[0] - b[0], a[1] - b[1])
+```
+*MediaPipe returns normalized coordinates (0..1); these functions convert to pixels and calculate distances for pinch detection.*
+
+**Finger Detection**
+```python
+def fingers_up(hand):
+    lm = hand.landmark
+    up = [False] * 5
+    for i, tp in enumerate([8, 12, 16, 20], start=1): 
+        up[i] = (lm[tp].y < lm[tp - 2].y)
+    up[0] = lm[4].x < lm[2].x
+    return up
+```
+*Compares Y coordinates (smaller y = finger up). Thumb uses X comparison due to orientation.*
+
+**Mode 1 — Detection**
+```python
+def mode_1():
+    cap = cv2.VideoCapture(0)
+    hands = mp_hands.Hands()
+    while True:
+        r, frame = cap.read()
+        frame = cv2.flip(frame, 1)
+        res = hands.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+        if res.multi_hand_landmarks:
+            for hand in res.multi_hand_landmarks:
+                mp_draw.draw_landmarks(frame, hand, mp_hands.HAND_CONNECTIONS)
+        cv2.imshow("MODE 1", frame)
+        if cv2.waitKey(1) & 0xFF == 27: break
+```
+
+**Mode 2 — Gesture Labels**
+```python
+up = fingers_up(hand)
+count = sum(up)
+if count == 0: g = "Fist"
+elif count == 5: g = "Open Hand"
+elif up[1] and up[2] and not up[3]: g = "Peace"
+elif up[0] and not any(up[1:]): g = "Thumb Up"
+```
+
+**Mode 3 — Visual Effects**
+```python
+if count == 0:  # Zoom on fist
+    zoom = min(zoom + 0.02, 1.8)
+    nh, nw = int(h / zoom), int(w / zoom)
+    cropped = frame[(h - nh) // 2:(h + nh) // 2, (w - nw) // 2:(w + nw) // 2]
+    frame = cv2.resize(cropped, (w, h))
+elif up[0] and not any(up[1:]):  # Confetti on thumb up
+    for _ in range(8):
+        confetti.append([random.randint(0, w), random.randint(0, h), 
+                        random.randint(5, 12), (random.randint(0, 255), 
+                        random.randint(0, 255), random.randint(0, 255))])
+```
+
+**Mode 4 — Bubble Pop Game**
+```python
+ix, iy = landmark_to_pixel(lm[8], w2, h2)
+px, py = landmark_to_pixel(lm[4], w2, h2)
+dist = euclidean((ix, iy), (px, py))
+PINCH_THRESHOLD = 35
+if dist < PINCH_THRESHOLD:
+    for b in bubbles[:]:
+        if euclidean((ix, iy), (b.x, b.y)) < b.r:
+            score += 1
+            bubbles.remove(b)
+            bubbles.append(Bubble(w2, h2))
+```
+*Detects pinch when fingertips are close; pops bubble if fingertip overlaps.*
+
+
+#### Evidences
+
+- ![Evidence mode 1 (hands detection)](./media/7_detection.gif): Hands detection
+
+- ![Evidence mode 2 (finger count/gestures)](./media/7_count_gestures.gif): Finger count and gestures
+
+- ![Evidence mode 3 (actions_gestures)](./media/7_actions_gestures.gif): Actions-based gestures
+
+- ![Evidence mode 4 (Bubble pop minigame with pinch gesture)](./media/7_minigame.gif): Mini game popping bubles with gestures
+
+
+---
+
+### Exercise 8 — Voice Commands (Python + VOSK + OSC → Processing)
+
+**Summary:** Captures audio with `sounddevice`, recognizes commands with VOSK, sends OSC messages to Processing for visual control (circle movement, background color). Uses `pyttsx3` for voice feedback.
+
+#### Architecture
+- **Python:** Audio capture → VOSK recognition → OSC messaging
+- **Processing:** Receives OSC on port 9000 → applies visual changes
+
+### Python Implementation
+
+**Initialization**
+```python
+MODEL_PATH = "model-es"
+client = SimpleUDPClient("127.0.0.1", 9000)
+model = Model(MODEL_PATH)
+recognizer = KaldiRecognizer(model, 16000)
+engine = pyttsx3.init()
+```
+
+**Command Mapping**
+```python
+COMMANDS = {
+    "arriba":     ("/move", [0, 1]),
+    "abajo":      ("/move", [0, -1]),
+    "izquierda":  ("/move", [-1, 0]),
+    "derecha":    ("/move", [1, 0]),
+    "rojo":       ("/color", [1, 0, 0]),
+    "verde":      ("/color", [0, 1, 0]),
+    "azul":       ("/color", [0, 0, 1]),
+}
+```
+
+**Command Execution**
+```python
+def execute_command(text):
+    text = text.lower()
+    for key in COMMANDS:
+        if key in text:
+            path, values = COMMANDS[key]
+            client.send_message(path, values)
+            engine.say(f"Executing command {key}")
+            engine.runAndWait()
+            return
+    engine.say("Command not found. Please repeat")
+    engine.runAndWait()
+```
+
+**Audio Callback**
+```python
+def callback(indata, frames, time_data, status):
+    data = bytes(indata)
+    if recognizer.AcceptWaveform(data):
+        result = json.loads(recognizer.Result())
+        texto = result.get("text", "")
+        if texto.strip():
+            execute_command(texto)
+```
+
+#### Processing Implementation
+
+**Setup**
+```java
+OscP5 osc;
+NetAddress remote;
+
+void setup() {
+  size(600, 600);
+  osc = new OscP5(this, 9000);
+  remote = new NetAddress("127.0.0.1", 9000);
+}
+```
+
+**Message Handling**
+```java
+void oscEvent(OscMessage m) {
+  if (m.checkAddrPattern("/move")) {
+    int dx = m.get(0).intValue();
+    int dy = m.get(1).intValue();
+    x += dx * 20;
+    y -= dy * 20;
+  }
+  if (m.checkAddrPattern("/color")) {
+    float r = m.get(0).intValue();
+    float g = m.get(1).intValue();
+    float b = m.get(2).intValue();
+    bg = color(r, g, b);
+  }
+}
+```
+*OSC values translate to position/color changes with scaling for visibility.*
+
+#### Evidences
+-Please see the video to view actions based on voice commands:
+
+[Watch Video](./media/8_audio_actions.mp4)
+---
+
+### Exercise 9 — Multimodal Interface (Voice + Gestures)
+
+**Summary:** Simultaneous audio and video processing using threads. MediaPipe detects gestures, VOSK recognizes voice commands. Combined inputs trigger compound effects.
+
+#### Architecture
+
+- **Audio queue** (`queue.Queue`) passes data from callback to voice thread
+- **Threads:**
+  - `voice_thread`: processes audio, updates state variables
+  - `video_thread`: captures frames, detects gestures, renders effects
+- **Shared globals:** control effects (`gesture_detected`, `confetti_active`)
+
+#### Implementation
+
+**Setup**
+```python
+vosk_model_path = "model-es"
+model = Model(vosk_model_path)
+recognizer = KaldiRecognizer(model, 16000)
+audio_queue = queue.Queue()
+```
+
+**Audio Callback**
+```python
+def audio_callback(indata, frames, time, status):
+    audio_data = (indata * 32767).astype(np.int16)
+    audio_queue.put(audio_data.tobytes())
+```
+
+**Voice Thread**
+```python
+def voice_thread():
+    global current_command, confetti_active, stop_display_counter
+    while True:
+        data = audio_queue.get()
+        if recognizer.AcceptWaveform(data):
+            result = json.loads(recognizer.Result())
+            text = result.get("text", "")
+        else:
+            partial = json.loads(recognizer.PartialResult())
+            text = partial.get("partial", "")
+        if "fiesta" in text.lower():
+            current_command = "fiesta"
+            confetti_active = True
+        elif "apagar" in text.lower():
+            current_command = "parar"
+            confetti_active = False
+            stop_display_counter = 30
+```
+
+**Video Thread**
+```python
+def video_thread():
+    global gesture_detected
+    while True:
+        ret, frame = cap.read()
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        result = hands.process(frame_rgb)
+        gesture_detected = None
+        if result.multi_hand_landmarks:
+            for hand_landmarks in result.multi_hand_landmarks:
+                mp_draw.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                gesture_detected = detect_gesture(hand_landmarks)
+        draw_text_box(frame, f"Command: {current_command or ''} | Gesture: {gesture_detected or ''}", ...)
+        process_effects(frame)
+        cv2.imshow("Multimodal", frame)
+```
+
+**Gesture Detection**
+```python
+def detect_gesture(landmarks):
+    if landmarks.landmark[8].y < landmarks.landmark[6].y and \
+       landmarks.landmark[12].y < landmarks.landmark[10].y and \
+       landmarks.landmark[16].y > landmarks.landmark[14].y and \
+       landmarks.landmark[20].y > landmarks.landmark[18].y:
+        return "PEACE"
+    return None
+```
+
+**Combined Effect**
+```python
+if confetti_active and gesture_detected == "PEACE":
+    combined_effect_active = True
+if combined_effect_active:
+    screen_color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+    overlay = np.full(frame.shape, screen_color, dtype=np.uint8)
+    alpha = 0.4
+    frame[:] = cv2.addWeighted(frame, 1 - alpha, overlay, alpha, 0)
+```
+*Voice activates confetti flag; PEACE gesture triggers color overlay — multimodal compound action.*
+
+#### Evidences
+-  Please see the video to multimodal gestures+audio commands:
+
+[Watch Video](./media/9_multimodal_gestures_audio.mp4)
+
+
+#### Notes
+
+- Threading with simple globals works for atomic operations; complex systems need explicit locks
+- Voice recognition quality depends on VOSK model and microphone setup
+- Gesture detection uses heuristic landmark comparisons; may need tuning for angles and lighting
+
+---
+
+### 10. BCI Simulation (Synthetic EEG and Control)
+
+* **Description:** Simulated a Brain–Computer Interface (BCI) using synthetic EEG signals processed in real time to control visual feedback through **PyGame**. The project modeled cognitive interaction by mapping neural activity levels to visual parameters such as color intensity.
+
+* **`EEG_Signal_Generator` (Python):** Produces artificial EEG data composed of sine waves (Alpha band 8–13 Hz) mixed with Gaussian noise to simulate brainwave variability.  
+* **`AlphaBand_Filter` (SciPy):** Applies a Butterworth band-pass filter to extract Alpha frequency components, computing their energy as a control metric for attention or activation.  
+* **`EEG_Visualizer` (PyGame):** Translates EEG energy levels into dynamic color transitions — higher Alpha activity results in brighter, more vivid hues, representing increased mental engagement.
+
+---
+
+### 11. Projective Spaces and Projection Matrices
+* **Description:** This module was split into two parts: theory and practice, demonstrating how 3D is projected onto a 2D screen.
+    * **Theory (Python):** Implemented orthographic and perspective projection matrices from scratch using NumPy. This demonstrated mathematically how homogeneous coordinates (specifically, dividing by the `w` component) create perspective, causing distant objects to appear smaller.
+    * **Practice (Unity):** Created a "Depth Visualizer" shader (`Depth_Shader`) using Shader Graph. This `Unlit` shader uses the `Scene Depth` node to map distance (from near=black to far=white), visually demonstrating the Z-buffer.
+    * **Integration:** The camera toggle script (from Point 1) was used to switch between perspective and orthographic cameras, showing how the depth visualization changes, which visually confirms the mathematical differences implemented in the Python script.
+
+---
+
+## 4. Key Code Snippets
+
+### Camera Controller (Point 1)
+
+```csharp
+// File: ControlCamaras.cs
+// Toggles between two cameras (perspective and orthographic) when the 'C' key is pressed.
+
+using UnityEngine;
+
+public class ControlCamaras : MonoBehaviour
+{
+    public Camera camaraPerspectiva;
+    public Camera camaraOrtografica;
+
+    void Start()
+    {
+        camaraPerspectiva.enabled = true;
+        camaraOrtografica.enabled = false;
+    }
+
+    void Update()
+    {
+        // Check if the 'C' key was pressed
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            // Invert the 'enabled' state of both cameras
+            camaraPerspectiva.enabled = !camaraPerspectiva.enabled;
+            camaraOrtografica.enabled = !camaraOrtografica.enabled;
+        }
+    }
+}
+````
+
+### 360° image and video viewing (Point 5)
+
+```csharp
+using UnityEngine;
+
+public class OrbitCamera : MonoBehaviour
+{
+    public float sensitivity = 2f;
+    private float rotationX = 0f;
+    private float rotationY = 0f;
+
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    void Update()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * sensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+
+        rotationX += mouseX;
+        rotationY -= mouseY;
+
+        rotationY = Mathf.Clamp(rotationY, -90f, 90f);
+
+        // Aplicar rotación a la cámara
+        transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
+    }
+}
+
+````
+
+### Custom Shaders (Point 3)
+![Evidence point 3](./media/ColorDinamico.png)
+---
+![Evidence point 3](./media/DynamicTexture.png)
+---
+![Evidence point 3](./media/Toon.png)
+
+### Projection Matrices (Point 11 - Python)
+```python
+# File: python/projection_matrices.py
+# Implements perspective projection matrix from scratch.
+
+import numpy as np
+
+# ... (parameter setup) ...
+
+# Fórmula de la matriz de Perspectiva
+M_persp = np.array([
+    [t_calc/aspecto, 0, 0,                               0],
+    [0,              t_calc, 0,                               0],
+    [0,              0,      (f_persp+n_persp)/(n_persp-f_persp), (2*f_persp*n_persp)/(n_persp-f_persp)],
+    [0,              0,      -1,                              0] # ¡El truco! Pone -Z en el valor W
+])
+
+# Aplicamos la matriz
+p_clip_persp = M_persp @ p_mundo
+
+# La "División de Perspectiva" es dividir (x, y, z) por 'w'.
+w = p_clip_persp[3]
+p_ndc_persp = p_clip_persp[:3] / w
+```
+### Projection Matrices (Point 11 - Unity)
+![Evidence point 11](./media/Punto11.png)
+-----
+
+## 5\. Graphic Evidence (Renders)
+
+### PBR & Lighting (Point 1)
+![Evidence point 1](./media/point1.gif)
+
+### Procedural modeling from code (Point 2)
+![alt text](media/2_Modelado_procedural_desde_codigo.gif)
+
+### 360° image and video viewing (Point 5)
+
+#### view node
+![alt text](media/point_5_1.PNG)
+![alt text](media/5_Visualización_de_imágenes_y_video_360°.gif)
+
+### Custom Shaders (Point 3)
+![Evidence point 3](./media/point3-colors.gif)
+---
+![Evidence point 3](./media/point3-texture.gif)
+---
+![Evidence point 3](./media/point3-toon.gif)
+
+### BCI simulation (synthetic EEG and control) (Point 10)
+![alt text](media/10_Simulacion_BCI.gif)
+
+### Projection Matrices (Point 11)
+![Evidence point 11](./media/point11.gif)
+
+
+
+
+# Módulo 6: Entrada e Interacción (UI, Input y Colisiones)
+
+
+
 
 ## 6\. Reflection
 
-  * **Learnings:**
-  * **Technical Challenges:**
-  * **Possible Improvements:**
+## 6. Reflection
+
+### Learnings:
+* **Graphics Pipeline Mastery:** Gained comprehensive understanding of the rendering pipeline from vertex processing to fragment shading, particularly through implementing custom shaders in both Unity Shader Graph and GLSL for WebGL.
+* **Real-time Signal Processing:** Implemented band-pass filtering for synthetic EEG signals and learned to map continuous biological-inspired data to discrete visual parameters.
+* **Cross-Platform Communication:** Successfully established OSC protocol bridges between Python and Processing, demonstrating effective decoupling of recognition systems from visual rendering.
+
+### Technical Challenges:
+* **Thread Synchronization Without Locks:** Managing shared global variables across voice and video threads in Exercise 9 required careful consideration of atomic operations; scaling this approach would necessitate explicit mutex implementations.
+* **ES6 Module Integration with CDN Libraries:** Encountered asynchronous loading issues when THREE.js from CDN wasn't immediately available in ES6 module context; solved with promise-based waiting system but added initialization complexity.
+* **Real-time Performance Optimization:** Balancing multi-layered noise calculations in fragment shaders with 1000-particle physics systems required careful profiling; achieved 60fps by limiting noise octaves and using efficient distance checks for collisions.
+
+
+### Possible Improvements:
+* **State Management Architecture:** Replace global variables in multimodal systems with proper state management patterns (observer pattern, Redux-like stores) for better scalability and debugging.
+* **Shader Optimization:** Implement LOD (Level of Detail) systems for procedural shaders, reducing noise calculation complexity based on distance from camera to maintain performance at scale.
+* **BCI Signal Realism:** Enhance EEG simulation with multiple frequency bands (Beta, Theta, Delta), artifact injection (eye blinks, muscle tension), and more sophisticated filtering pipelines using wavelet transforms.
+* **Voice Command Robustness:** Implement confidence thresholds for VOSK recognition, add command confirmation dialogs for critical actions, and support multi-language model switching.
+* **360° Video Streaming:** Extend current local file playback to support streaming protocols (HLS, DASH) for cloud-based panoramic content delivery
+* **Cross-Platform Deployment:** Package multimodal systems as standalone applications using Electron or PyInstaller to eliminate browser/server setup requirements for end users.
 
 
