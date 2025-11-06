@@ -160,6 +160,363 @@ p_ndc_persp = p_clip_persp[:3] / w
 ### Projection Matrices (Point 11)
 ![Evidence point 11](./media/point11.gif)
 
+# Módulo 4: Texturizado Dinámico y Partículas
+
+## Descripción
+
+Implementación de materiales reactivos que cambian en tiempo real basados en shaders personalizados, junto con un sistema de partículas sincronizado. Este módulo demuestra técnicas avanzadas de texturizado procedural y animación de partículas en WebGL.
+
+## Características
+
+- **Material con shader personalizado**: Vertex y fragment shaders implementados en GLSL
+- **Texturas dinámicas procedimentales**: Generadas usando funciones de ruido (noise)
+- **Efectos visuales avanzados**:
+  - Efectos de emisión y fresnel para iluminación de bordes
+  - Multi-layered noise para texturas complejas
+  - Vertex displacement basado en funciones de ruido
+  - Color mixing dinámico entre dos colores
+- **Sistema de partículas**: 1000 partículas animadas con física simple
+- **Controles interactivos**: Sliders para ajustar intensidad de emisión y velocidad del ruido
+- **Animación procedural**: Objeto principal (icosaedro) con rotación y desplazamiento
+
+## Archivos Principales
+
+- `src/main.js`: Configuración de escena, cámara, renderer y material dinámico
+- `src/particles/particleSystem.js`: Sistema de partículas con física simple y actualización de colores
+- `src/shaders/dynamicMaterial.vert`: Vertex shader con desplazamiento por ruido
+- `src/shaders/dynamicMaterial.frag`: Fragment shader con múltiples capas de ruido
+
+## Instrucciones de Uso
+
+### Requisitos Previos
+
+- Navegador web moderno con soporte para WebGL (Chrome, Firefox, Edge, Safari)
+- Servidor web local (opcional, pero recomendado para evitar problemas CORS)
+
+### Ejecución
+
+1. Iniciar un servidor HTTP local (ver opciones en la sección general)
+2. Navegar a `04_texturizado_dinamico_particulas/index.html`
+
+### Controles
+
+- **Emissive Intensity Slider** (0-3): Controla la intensidad del efecto de emisión
+- **Noise Speed Slider** (0-3): Ajusta la velocidad de animación del ruido
+- **Pause/Play Button**: Pausa o reanuda la animación
+- **Reset Button**: Restablece los valores de los controles a sus valores por defecto
+
+### Comportamiento
+
+- El objeto icosaedro rota continuamente con efectos de textura dinámica
+- Las partículas orbitan alrededor del objeto con colores que cambian en el tiempo
+- Los efectos visuales responden en tiempo real a los cambios en los controles
+
+## Código Relevante
+
+### Fragment Shader - Multi-layered Noise
+
+```glsl
+uniform float uTime;
+uniform float uNoiseSpeed;
+uniform float uEmissiveIntensity;
+uniform vec3 uColorA;
+uniform vec3 uColorB;
+
+varying vec2 vUv;
+varying vec3 vPosition;
+varying vec3 vNormal;
+
+float noise(vec2 p) {
+    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+float smoothNoise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    
+    float a = noise(i);
+    float b = noise(i + vec2(1.0, 0.0));
+    float c = noise(i + vec2(0.0, 1.0));
+    float d = noise(i + vec2(1.0, 1.0));
+    
+    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+
+void main() {
+    vec2 uv = vUv;
+    uv += vec2(sin(uTime * 0.5), cos(uTime * 0.3)) * 0.1;
+    
+    // Multi-layered noise
+    float n1 = smoothNoise(uv * 5.0 + uTime * uNoiseSpeed);
+    float n2 = smoothNoise(uv * 10.0 - uTime * uNoiseSpeed * 0.5);
+    float n3 = smoothNoise(uv * 20.0 + uTime * uNoiseSpeed * 0.25);
+    
+    float noiseValue = (n1 + n2 * 0.5 + n3 * 0.25) / 1.75;
+    
+    // Color mixing
+    vec3 color = mix(uColorA, uColorB, noiseValue);
+    
+    // Emissive effect
+    float emissive = sin(vPosition.y * 3.0 + uTime * 2.0) * 0.5 + 0.5;
+    color += emissive * uEmissiveIntensity * 0.5;
+    
+    // Fresnel effect
+    float fresnel = pow(1.0 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0);
+    color += fresnel * uColorA * 0.3;
+    
+    gl_FragColor = vec4(color, 1.0);
+}
+```
+
+### Vertex Shader - Displacement por Ruido
+
+```glsl
+varying vec2 vUv;
+varying vec3 vPosition;
+varying vec3 vNormal;
+uniform float uTime;
+
+float noise(vec3 p) {
+    return fract(sin(dot(p, vec3(12.9898, 78.233, 45.543))) * 43758.5453);
+}
+
+void main() {
+    vUv = uv;
+    vPosition = position;
+    vNormal = normal;
+    
+    // Vertex displacement with noise
+    vec3 pos = position;
+    float n = noise(position * 2.0 + uTime * 0.5);
+    pos += normal * n * 0.1;
+    
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+}
+```
+
+## Evidencias Visuales
+
+- ![Evidencia](./media/punto4evidencia.gif): Animación del material dinámico
+
+- [ ](./media/vidadetalla.png): Vista detallada del sistema de partículas
+
+
+## Retos Técnicos
+
+1. **Sincronización de Partículas con Shaders**:
+   - Desafío: Coordinar la animación de partículas con los efectos del material dinámico
+   - Solución: Sistema de tiempo unificado (`uTime` uniform) compartido entre shader y partículas
+
+2. **Compatibilidad de Módulos ES6 con Three.js CDN**:
+   - Problema: THREE.js cargado desde CDN no estaba disponible en el contexto de módulos ES6
+   - Solución: Implementación de un sistema de espera asíncrona que verifica la disponibilidad de THREE antes de importar módulos
+
+---
+
+# Módulo 6: Entrada e Interacción (UI, Input y Colisiones)
+
+## Descripción
+
+Sistema completo de captura de entrada multimodal (teclado, mouse, touch) con detección de colisiones físicas y una interfaz de usuario reactiva. Este módulo demuestra cómo integrar múltiples métodos de entrada del usuario con sistemas de detección de eventos en tiempo real.
+
+## Características
+
+- **Input de teclado**: Sistema WASD/Arrow keys para movimiento preciso del objeto
+- **Input de mouse**: Hover detection y click en objetos para interacción visual
+- **Input táctil**: Soporte completo para dispositivos móviles con drag y gestos
+- **Sistema de colisiones**: Detección en tiempo real entre objetos con feedback visual
+- **UI Canvas**: Panel de control interactivo con color picker y sliders
+- **Feedback visual**: Indicadores de estado en tiempo real mostrando inputs activos
+
+## Archivos Principales
+
+- `src/main.js`: Escena principal, configuración de objetos y loop de animación
+- `src/input/keyboard.js`: Manejador de eventos de teclado con sistema WASD
+- `src/input/mouse.js`: Manejador de eventos de mouse con raycasting
+- `src/input/touch.js`: Manejador de eventos táctiles para dispositivos móviles
+- `src/physics/collisions.js`: Sistema de detección de colisiones por distancia
+
+## Instrucciones de Uso
+
+### Requisitos Previos
+
+- Navegador web moderno con soporte para WebGL (Chrome, Firefox, Edge, Safari)
+- Servidor web local (opcional, pero recomendado para evitar problemas CORS)
+
+### Ejecución
+
+1. Iniciar un servidor HTTP local (ver opciones en la sección general)
+2. Navegar a `06_entrada_interaccion/index.html`
+
+### Controles
+
+#### Teclado
+
+- **W / ↑**: Mover objeto hacia arriba
+- **S / ↓**: Mover objeto hacia abajo
+- **A / ←**: Mover objeto hacia la izquierda
+- **D / →**: Mover objeto hacia la derecha
+- **Space**: Reset posición del objeto
+- **R**: Rotar objeto manualmente
+
+#### Mouse
+
+- **Hover**: Pasar el mouse sobre las esferas para efectos visuales
+- **Click**: Interactuar con objetos en la escena
+
+#### Touch (Dispositivos Móviles)
+
+- **Drag**: Arrastrar para mover el objeto principal
+
+#### Panel de Control
+
+- **Color Picker**: Seleccionar el color del objeto principal
+- **Scale Slider**: Ajustar el tamaño del objeto (0.5x - 2.0x)
+- **Reset Position Button**: Restablecer la posición del objeto
+
+### Panel de Estado
+
+El panel muestra información en tiempo real:
+- **Mouse Position**: Coordenadas del cursor
+- **Keys Pressed**: Teclas actualmente presionadas
+- **Touch Status**: Estado del input táctil
+- **Collision Count**: Número total de colisiones detectadas
+- **Last Collision**: ID del último objeto con el que colisionó
+
+## Código Relevante
+
+### Sistema de Colisiones
+
+```javascript
+export class CollisionSystem {
+    constructor(mainObject, objects, threshold = 1.5) {
+        this.mainObject = mainObject;
+        this.objects = objects;
+        this.threshold = threshold;
+    }
+    
+    check() {
+        const collisions = [];
+        const mainPos = this.mainObject.position;
+        
+        this.objects.forEach(obj => {
+            const distance = mainPos.distanceTo(obj.position);
+            if (distance < this.threshold) {
+                collisions.push({
+                    id: obj.userData.id,
+                    distance: distance
+                });
+                // Visual feedback - cambiar color a rojo
+                obj.material.color.setHex(0xff0000);
+                
+                // Reset color después de un tiempo
+                setTimeout(() => {
+                    obj.material.color.copy(obj.userData.originalColor);
+                }, 200);
+            }
+        });
+        
+        return collisions;
+    }
+}
+```
+
+### Input de Teclado
+
+```javascript
+export class KeyboardInput {
+    constructor(targetObject) {
+        this.targetObject = targetObject;
+        this.keys = {};
+        this.speed = 0.1;
+        
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
+        
+        window.addEventListener('keydown', this.handleKeyDown);
+        window.addEventListener('keyup', this.handleKeyUp);
+    }
+    
+    handleKeyDown(event) {
+        this.keys[event.key.toLowerCase()] = true;
+        this.update();
+    }
+    
+    handleKeyUp(event) {
+        this.keys[event.key.toLowerCase()] = false;
+    }
+    
+    update() {
+        if (this.keys['w'] || this.keys['arrowup']) {
+            this.targetObject.position.y += this.speed;
+        }
+        if (this.keys['s'] || this.keys['arrowdown']) {
+            this.targetObject.position.y -= this.speed;
+        }
+        if (this.keys['a'] || this.keys['arrowleft']) {
+            this.targetObject.position.x -= this.speed;
+        }
+        if (this.keys['d'] || this.keys['arrowright']) {
+            this.targetObject.position.x += this.speed;
+        }
+    }
+    
+    getActiveKeys() {
+        return Object.keys(this.keys).filter(key => this.keys[key]).join(', ') || 'None';
+    }
+}
+```
+
+## Evidencias Visuales
+
+- ![Evidencia](./media/Grabación2025-11-05222245.gif): Interacción con teclado
+- ![Evidencia](./media/evidencia6.gif):  Detección de colisiones
+- ![Evidencia](./media/image.png): Panel de control y UI
+
+## Retos Técnicos
+
+1. **Detección de Colisiones en Tiempo Real**:
+   - Reto: Optimizar la detección de colisiones para múltiples objetos sin afectar el rendimiento
+   - Implementación: Sistema de threshold distance con actualización eficiente de geometrías
+
+2. **Sincronización de Múltiples Inputs**:
+   - Desafío: Coordinar teclado, mouse y touch simultáneamente sin conflictos
+   - Solución: Sistema de eventos independiente para cada tipo de input con priorización clara
+
+---
+
+## Instrucciones Generales de Ejecución
+
+### Requisitos Previos
+
+- Navegador web moderno con soporte para WebGL (Chrome, Firefox, Edge, Safari)
+- Servidor web local (opcional, pero recomendado para evitar problemas CORS)
+
+### Opciones de Servidor HTTP
+
+#### Opción 1: Servidor HTTP Simple (Python)
+```bash
+# Python 3
+python -m http.server 8000
+
+# Python 2
+python -m SimpleHTTPServer 8000
+```
+
+#### Opción 2: Servidor HTTP Simple (Node.js)
+```bash
+npx http-server
+```
+
+#### Opción 3: Live Server (VS Code)
+- Instalar extensión "Live Server"
+- Click derecho en `index.html` → "Open with Live Server"
+
+Luego acceder a `http://localhost:8000/04_texturizado_dinamico_particulas/` o `http://localhost:8000/06_entrada_interaccion/`
+
+
+
 ## 6\. Reflection
 
   * **Learnings:**
