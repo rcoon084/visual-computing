@@ -31,6 +31,12 @@ This section documents the techniques implemented for each activity in the works
 
 ### 2. Procedural Modeling from Code
 
+* **Description:** Explored generative geometry and algorithmic modeling by producing 3D structures entirely through code. The implementation focused on procedural form generation using **Python (NumPy, Matplotlib 3D)** to create mathematically defined shapes and spatial patterns.
+
+* **`Spiral_Generator` (Python):** Generates 3D spiral geometries based on trigonometric functions. The radius and height evolve parametrically using sine and cosine, producing dynamic organic forms.  
+* **`Grid_Pattern` (Python):** Builds procedural lattices and fractal-like surfaces using nested loops and recursive functions to explore repetition and structural growth.  
+* **`Dynamic_Transformation` (Python):** Applies continuous transformations (rotation, scale, noise distortion) to vertex coordinates, showing how procedural rules can animate geometry over time.
+
 ---
 
 ###  3. Custom Shaders and Effects
@@ -47,6 +53,13 @@ This section documents the techniques implemented for each activity in the works
 ---
 
 ### 5. 360° Image and Video Visualization
+
+* **Description:** Developed an immersive 360° environment in **Unity 3D** using panoramic media as dynamic textures. The goal was to simulate spatial exploration and real-time scene switching using equirectangular projections and custom camera controls.
+
+* **`SkySphere_360` (Unity):** Implemented an inverted sphere mesh to display 360° equirectangular images mapped as unlit textures, ensuring seamless panoramic projection.  
+* **`VideoPlayer_360` (Unity):** Integrated Unity’s `VideoPlayer` component to render spherical 360° video content on the sky dome, enabling dynamic, animated backgrounds.  
+* **`OrbitCamera_Controller` (C#):** Created a custom script allowing the user to freely rotate the view using mouse input (and optionally gyroscope), enhancing immersion and exploration.
+
 ---
 
 ### 6. Input and Interaction (UI, Input, Collisions)
@@ -65,6 +78,12 @@ This section documents the techniques implemented for each activity in the works
 ---
 
 ### 10. BCI Simulation (Synthetic EEG and Control)
+
+* **Description:** Simulated a Brain–Computer Interface (BCI) using synthetic EEG signals processed in real time to control visual feedback through **PyGame**. The project modeled cognitive interaction by mapping neural activity levels to visual parameters such as color intensity.
+
+* **`EEG_Signal_Generator` (Python):** Produces artificial EEG data composed of sine waves (Alpha band 8–13 Hz) mixed with Gaussian noise to simulate brainwave variability.  
+* **`AlphaBand_Filter` (SciPy):** Applies a Butterworth band-pass filter to extract Alpha frequency components, computing their energy as a control metric for attention or activation.  
+* **`EEG_Visualizer` (PyGame):** Translates EEG energy levels into dynamic color transitions — higher Alpha activity results in brighter, more vivid hues, representing increased mental engagement.
 
 ---
 
@@ -110,6 +129,40 @@ public class ControlCamaras : MonoBehaviour
 }
 ````
 
+### 360° image and video viewing (Point 5)
+
+```csharp
+using UnityEngine;
+
+public class OrbitCamera : MonoBehaviour
+{
+    public float sensitivity = 2f;
+    private float rotationX = 0f;
+    private float rotationY = 0f;
+
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    void Update()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * sensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+
+        rotationX += mouseX;
+        rotationY -= mouseY;
+
+        rotationY = Mathf.Clamp(rotationY, -90f, 90f);
+
+        // Aplicar rotación a la cámara
+        transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
+    }
+}
+
+````
+
 ### Custom Shaders (Point 3)
 ![Evidence point 3](./media/ColorDinamico.png)
 ---
@@ -150,12 +203,24 @@ p_ndc_persp = p_clip_persp[:3] / w
 ### PBR & Lighting (Point 1)
 ![Evidence point 1](./media/point1.gif)
 
+### Procedural modeling from code (Point 2)
+![alt text](media/2_Modelado_procedural_desde_codigo.gif)
+
+### 360° image and video viewing (Point 5)
+
+#### view node
+![alt text](media/point_5_1.PNG)
+![alt text](media/5_Visualización_de_imágenes_y_video_360°.gif)
+
 ### Custom Shaders (Point 3)
 ![Evidence point 3](./media/point3-colors.gif)
 ---
 ![Evidence point 3](./media/point3-texture.gif)
 ---
 ![Evidence point 3](./media/point3-toon.gif)
+
+### BCI simulation (synthetic EEG and control) (Point 10)
+![alt text](media/10_Simulacion_BCI.gif)
 
 ### Projection Matrices (Point 11)
 ![Evidence point 11](./media/point11.gif)
