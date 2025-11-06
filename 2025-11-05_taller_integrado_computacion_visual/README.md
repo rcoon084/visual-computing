@@ -69,7 +69,10 @@ This section documents the techniques implemented for each activity in the works
 ---
 
 ### 11. Projective Spaces and Projection Matrices
-
+* **Description:** This module was split into two parts: theory and practice, demonstrating how 3D is projected onto a 2D screen.
+    * **Theory (Python):** Implemented orthographic and perspective projection matrices from scratch using NumPy. This demonstrated mathematically how homogeneous coordinates (specifically, dividing by the `w` component) create perspective, causing distant objects to appear smaller.
+    * **Practice (Unity):** Created a "Depth Visualizer" shader (`Depth_Shader`) using Shader Graph. This `Unlit` shader uses the `Scene Depth` node to map distance (from near=black to far=white), visually demonstrating the Z-buffer.
+    * **Integration:** The camera toggle script (from Point 1) was used to switch between perspective and orthographic cameras, showing how the depth visualization changes, which visually confirms the mathematical differences implemented in the Python script.
 
 ---
 
@@ -114,6 +117,32 @@ public class ControlCamaras : MonoBehaviour
 ---
 ![Evidence point 3](./media/Toon.png)
 
+### Projection Matrices (Point 11 - Python)
+```python
+# File: python/projection_matrices.py
+# Implements perspective projection matrix from scratch.
+
+import numpy as np
+
+# ... (parameter setup) ...
+
+# Fórmula de la matriz de Perspectiva
+M_persp = np.array([
+    [t_calc/aspecto, 0, 0,                               0],
+    [0,              t_calc, 0,                               0],
+    [0,              0,      (f_persp+n_persp)/(n_persp-f_persp), (2*f_persp*n_persp)/(n_persp-f_persp)],
+    [0,              0,      -1,                              0] # ¡El truco! Pone -Z en el valor W
+])
+
+# Aplicamos la matriz
+p_clip_persp = M_persp @ p_mundo
+
+# La "División de Perspectiva" es dividir (x, y, z) por 'w'.
+w = p_clip_persp[3]
+p_ndc_persp = p_clip_persp[:3] / w
+```
+### Projection Matrices (Point 11 - Unity)
+![Evidence point 11](./media/Punto11.png)
 -----
 
 ## 5\. Graphic Evidence (Renders)
@@ -128,11 +157,13 @@ public class ControlCamaras : MonoBehaviour
 ---
 ![Evidence point 3](./media/point3-toon.gif)
 
+### Projection Matrices (Point 11)
+![Evidence point 11](./media/point11.gif)
+
 ## 6\. Reflection
 
   * **Learnings:**
   * **Technical Challenges:**
   * **Possible Improvements:**
-
 
 
