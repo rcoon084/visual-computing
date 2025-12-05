@@ -5,6 +5,109 @@
 
 `2025-12-03`
 
+# Subsistema 1: Visualización 3D Optimizada y Realidad Aumentada
+
+## Descripción del Proyecto
+
+Este subsistema constituye el módulo encargado de la **percepción visual** dentro del proyecto de Computación Visual Avanzada. Su función es capturar video en tiempo real y ejecutar:
+
+1. **Detección de objetos** mediante YOLOv8/YOLOv9.  
+2. **Segmentación de instancias** utilizando modelos "-seg".  
+3. **Representación visual estilizada** mediante un HUD moderno.  
+4. **Exportación estructurada** en formato JSON para consumo de otros subsistemas.
+
+Este módulo funciona de manera **totalmente autónoma**, independiente del resto del pipeline.
+
+---
+
+## Stack Tecnológico
+
+- **Visión por Computador:** Ultralytics YOLO (v8+)
+- **Segmentación:** YOLO-Seg (Modelos Nano/Small)
+- **Procesamiento de Video:** OpenCV
+- **Serialización:** JSON
+- **Interfaz HUD:** Overlays con OpenCV
+- **Lenguaje:** Python 3.10+
+
+---
+
+## Funcionalidades Clave
+
+### A. Detección en Tiempo Real (YOLO)
+El sistema realiza detección de múltiples objetos en la escena:
+- Soporte para 80 clases del dataset COCO.
+- Visualización con colores consistentes y tipografía limpia.
+- Detecciones en tiempo real con webcam.
+
+### B. Segmentación de Instancias (YOLO-Seg)
+El sistema puede segmentar objetos:
+- Máscaras por instancia.
+- Polígonos representados en arrays.
+- Exportación a JSON por cada fotograma.
+
+### C. Interfaz Visual Optimizada (HUD)
+Interfaz moderna tipo panel lateral:
+- FPS en tiempo real.
+- Número de objetos detectados.
+- Clase y confianza del primer objeto.
+- Caja semi–transparente estilo "Cyber HUD".
+
+### D. Exportación de Datos (JSON)
+Cada fotograma genera un archivo JSON con:
+- Bounding boxes.
+- Clase.
+- Confianza.
+- Máscara segmentada.
+
+Estos archivos pueden ser consumidos por sistemas de visualización o dashboards.
+---
+## ▶️ Instrucciones de Ejecución
+
+### 1. Prerrequisitos
+- Python 3.10 o superior
+- Webcam
+
+### 2. Instalar dependencias
+```
+pip install -r requirements.txt
+```
+
+### 3. Ejecutar el subsistema
+```
+python main.py
+```
+
+### 4. Resultados generados
+- `results/detections/` — imágenes anotadas
+- `results/json/` — detecciones en formato JSON
+
+---
+
+## Métricas de Rendimiento
+
+| Métrica | Valor esperado |
+|--------|----------------|
+| FPS Promedio | 15–30 FPS |
+| Latencia por frame | 30–80 ms |
+| Clases detectadas | 80 (COCO) |
+| Resolución | 640×480 |
+
+Se recomienda analizar:
+- Variación de FPS según resolución.
+- Objetos detectados por frame.
+- Tiempos de inferencia promedio.
+
+---
+
+## Evidencias
+
+**Fig 1. HUD de detección y segmentación**
+
+![alt text](../results/2_Modelado_procedural_desde_codigo.gif)
+
+
+---
+
 
 # Subsistema 3: Visualización 3D Optimizada y Realidad Aumentada
 ##  Descripción del Proyecto
