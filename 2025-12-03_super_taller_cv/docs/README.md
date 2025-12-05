@@ -61,7 +61,7 @@ Cada fotograma genera un archivo JSON con:
 
 Estos archivos pueden ser consumidos por sistemas de visualización o dashboards.
 ---
-## ▶️ Instrucciones de Ejecución
+## Instrucciones de Ejecución
 
 ### 1. Prerrequisitos
 - Python 3.10 o superior
