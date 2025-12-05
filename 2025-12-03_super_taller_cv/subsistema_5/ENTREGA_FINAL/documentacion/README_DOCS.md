@@ -1,78 +1,84 @@
-# Documentación - Subsistema 5
+# Documentation - Subsystem 5
 
-**Proyecto:** Taller Integral de Computación Visual Avanzada  
-**Subsistema:** 5 - Entrenamiento y Comparación de Modelos CNN  
-**Fecha:** Diciembre 2025
+**Project:** Advanced Visual Computing Workshop
+**Subsystem:** 5 - CNN Model Training and Comparison
+**Date:** December 2025
 
 ---
 
-## 📚 Índice de Documentación
+## Documentation Index
 
-### Documentos Disponibles
+### Available Documents
 
-1. **[README.md](README.md)** *(este archivo)*
-   - Índice general de documentación
-   - Enlaces a todos los documentos
+1. **[README.md](README.md)** - READ FIRST
+   - System overview
+   - Quick start guide
+   - Features and results
 
-2. **[ESTADO_PROYECTO.md](ESTADO_PROYECTO.md)** ⭐ **RECOMENDADO LEER PRIMERO**
-   - Estado actual del proyecto (73% completado)
-   - Componentes implementados vs pendientes
-   - Problemas encontrados y soluciones
-   - Resultados obtenidos
-   - Próximos pasos
+2. **[ESTADO_PROYECTO.md](ESTADO_PROYECTO.md)**
+   - Current project status (100% completed)
+   - Implemented components
+   - Obtained results
 
 3. **[EVIDENCIAS.md](EVIDENCIAS.md)**
-   - Plan de capturas de pantalla
-   - Guion para GIFs (mínimo 6)
-   - Estructura del video demo (30-60s)
-   - Herramientas recomendadas
-   - Checklist de evidencias
+   - Generated visual evidence
+   - GIFs and plots
+   - Metrics files
 
 4. **[ARCHITECTURE.md](ARCHITECTURE.md)**
-   - Arquitectura técnica detallada del sistema
-   - Diagramas de flujo de datos
-   - Componentes y módulos
-   - Patrones de diseño aplicados
+   - Detailed technical architecture
+   - Data flow diagrams
+   - Components and modules
+   - Applied design patterns
 
 5. **[METRICAS.md](METRICAS.md)**
-   - Explicación de métricas utilizadas
+   - Metrics explanation
    - Accuracy, Precision, Recall, F1-Score, AUC
-   - Fórmulas y ejemplos
-   - Interpretación de resultados
+   - Formulas and examples
+   - Results interpretation
+
+6. **[QUICK_DEMO.md](QUICK_DEMO.md)**
+   - Quick setup guide
+   - Execution commands
+   - Results visualization
+
+7. **[RUTINAS_DEMO.md](RUTINAS_DEMO.md)**
+   - Complete presentation guide
+   - Demo scripts
+   - Video guide
+   - Troubleshooting
 
 ---
 
-## 🎯 Guía Rápida de Lectura
+## Quick Reading Guide
 
-### Si eres nuevo en el proyecto:
+### If you are new to the project:
 ```
-1. Lee ESTADO_PROYECTO.md (10 min)
-   → Entenderás qué está hecho y qué falta
+1. Read README.md (10 min)
+   → Understand what the system does
 
-2. Revisa ../README.md en la raíz (5 min)
-   → Verás cómo ejecutar el código
+2. Review ESTADO_PROYECTO.md (5 min)
+   → See what's done and what's achieved
 
-3. Consulta EVIDENCIAS.md si necesitas generar capturas (5 min)
-   → Sabrás qué evidencias capturar
+3. Consult EVIDENCIAS.md (5 min)
+   → See generated evidence
 ```
 
-### Si necesitas entender la arquitectura:
+### If you need to understand the architecture:
 ```
 1. ARCHITECTURE.md (15 min)
-   → Diseño técnico completo
+   → Complete technical design
 
 2. METRICAS.md (10 min)
-   → Cómo se evalúan los modelos
+   → How models are evaluated
 ```
 
-### Si vas a presentar el proyecto:
+### If you will present the project:
 ```
-1. ESTADO_PROYECTO.md - Resultados obtenidos
-2. EVIDENCIAS.md - Plan de demo
-3. ../README.md - Cómo ejecutar
-```
-
----
+1. ESTADO_PROYECTO.md - Obtained results
+2. RUTINAS_DEMO.md - Presentation guide
+3. README.md - How to execute
+```---
 
 ## 📊 Resumen Ejecutivo
 

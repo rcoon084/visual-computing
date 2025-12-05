@@ -1,46 +1,45 @@
-# Quick Demo Script - Subsistema 5
+# Quick Demo Script - Subsystem 5
 
-## 1. Configuración rápida
+## 1. Quick Setup
 
 ```powershell
-cd python/training
+cd codigo
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## 2. Ejecución completa (recomendado)
+## 2. Complete Execution (Recommended)
 
 ```powershell
 python run_complete_automation.py
 ```
 
-El script ejecuta automáticamente:
-1. Verificación del entorno y del modelo.
-2. Generación de evidencias (GIFs + capturas + métricas).
-3. Actualización de documentación.
-4. Ejecución de pruebas rápidas.
-5. Empaquetado en `ENTREGA_FINAL/`.
+The script automatically executes:
+1. Environment and model verification.
+2. Evidence generation (GIFs + screenshots + metrics).
+3. Documentation update.
+4. Quick tests execution.
+5. Packaging in `ENTREGA_FINAL/`.
 
-## 3. Ejecución manual por etapas (avanzado)
+## 3. Manual Execution by Stages (Advanced)
 
 ```powershell
-# Entrenar modelo rápido
+# Train quick model
 python simple_cnn.py
 
-# Probar modelo
+# Test model
 python test_model.py
 
-# Generar evidencias visuales
+# Generate visual evidence
 python generate_evidence.py
 
-# Actualizar documentación
+# Update documentation
 python update_documentation.py
 ```
 
-## 4. Visualización de resultados
+## 4. Results Visualization
 
-- Evidencias: `results/evidencias/`
-- Modelos: `results/models/`
-- Dashboard (opcional): `streamlit run dashboard.py`
-- Entrega final consolidada: `ENTREGA_FINAL/`
+- Evidence: `evidencias/`
+- Models: `modelos/`
+- Consolidated final delivery: `ENTREGA_FINAL/`

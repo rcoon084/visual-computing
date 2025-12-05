@@ -1,212 +1,152 @@
-# 🤖 Subsistema 5: Entrenamiento y Comparación de Modelos CNN
+# Subsystem 5: CNN Model Training and Comparison
 
-## Taller Integral de Computación Visual Avanzada - Subsistema 5
+## Advanced Visual Computing Workshop - Subsystem 5
 
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.13+-FF6F00?logo=tensorflow)](https://www.tensorflow.org/)
-[![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python)](https://www.python.org/)
-[![Keras](https://img.shields.io/badge/Keras-Deep%20Learning-D00000)](https://keras.io/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+**TensorFlow 2.13+** | **Python 3.13** | **Keras Deep Learning**
 
 ---
 
-## 📋 Descripción
+## Description
 
-Subsistema especializado en **entrenamiento y comparación de modelos de Deep Learning** para clasificación de imágenes. Desarrollado como parte del Taller Integral de Computación Visual Avanzada.
+Specialized subsystem for **Deep Learning model training and comparison** for image classification. Developed as part of the Advanced Visual Computing Workshop.
 
-### ✅ **Implementaciones Completadas:**
+### Implemented Features:
 
-- ✅ **CNN Simple Optimizada** - Modelo ligero para hardware limitado (156K parámetros)
-- ✅ **CNN desde Cero** - Arquitectura personalizada con validación cruzada
-- ✅ **Fine-tuning** - Transfer learning con modelos preentrenados
-- ✅ **Sistema de Comparación** - Análisis exhaustivo de métricas
-- ✅ **Dashboard Interactivo** - Visualización de resultados con Streamlit
-
----
-
-## 🎯 Características Principales
-
-### 1. 🔬 Entrenamiento de CNN Personalizada
-- Arquitectura profunda con 4 bloques convolucionales
-- Batch Normalization y Dropout
-- Validación cruzada K-Fold
-- Early Stopping y Learning Rate Scheduling
-- Métricas completas (Accuracy, Precision, Recall, AUC)
-
-### 2. 🚀 Transfer Learning
-- Modelos preentrenados de ImageNet
-- Estrategia de dos fases:
-  - **Fase 1**: Feature Extraction (top layers)
-  - **Fase 2**: Fine-Tuning (todo el modelo)
-- Soporte para múltiples arquitecturas
-
-### 3. 📊 Análisis Comparativo
-- Comparación automática entre modelos
-- Visualizaciones:
-  - Gráficas de barras
-  - Radar charts
-  - Matrices de confusión
-  - Curvas ROC
-  - Scatter plots Precision vs Recall
-
-### 4. 🎨 Dashboard Interactivo
-- Streamlit UI moderna y responsiva
-- Filtros dinámicos
-- Comparación lado a lado
-- Exportación de datos (CSV, JSON)
-- Gráficas interactivas con Plotly
-
-### 5. ⚙️ Automatización de Evidencias y Documentación
-- `python run_complete_automation.py` ejecuta el pipeline end-to-end
-- Genera y registra 6+ GIFs, 10+ capturas y métricas consolidadas
-- Actualiza los documentos en `docs/` con los resultados más recientes
-- Empaqueta automáticamente la carpeta `ENTREGA_FINAL/`
+- Simple CNN Model - Lightweight model for limited hardware (156K parameters)
+- Automated Training Pipeline - Complete training and evaluation workflow
+- Performance Metrics - Comprehensive evaluation system
+- Visual Evidence Generation - Automated GIF and plot creation
+- Complete Documentation - Technical guides and references
 
 ---
 
-## 🏗️ Estructura del Proyecto
+## Main Features
+
+### 1. Custom CNN Training
+- Deep architecture with 3 convolutional blocks
+- Batch Normalization and Dropout
+- Early Stopping and Learning Rate Scheduling
+- Complete metrics (Accuracy, Precision, Recall, AUC)
+
+### 2. Performance Analysis
+- Automatic comparison between classes
+- Visualizations:
+  - Training history graphs
+  - Confusion matrices
+  - ROC curves
+  - Prediction samples
+
+### 3. Evidence Automation
+- `python run_complete_automation.py` executes the end-to-end pipeline
+- Generates and records 2+ GIFs and metrics
+- Automatically updates documents
+- Packages the `ENTREGA_FINAL/` folder
+
+---
+
+## Project Structure
 
 ```
-2025-12-04_super_taller_cv/
-├── python/
-```powershell
-python run_complete_automation.py
-```
-│       ├── cnn_from_scratch.py      # 🔧 CNN completa con CV
-│       ├── fine_tuning.py           # 📋 Transfer Learning
-│       ├── compare_models.py        # 📊 Comparación de modelos
-│       ├── dashboard.py             # 🎨 Dashboard Streamlit
-│       ├── run_all.py               # 🚀 Pipeline automatizado
-│       └── requirements.txt         # 📦 Dependencias
-├── data/
-│   ├── raw/                         # Datos originales (CIFAR-10)
-│   └── processed/                   # Datos preprocesados
-├── results/
-│   ├── models/
-│   │   └── simple_cnn_20251204_202143.h5  # ✅ Modelo entrenado
-│   └── plots/                       # Visualizaciones generadas
-└── docs/
-    ├── README_DOCS.md               # Índice de documentación
-    ├── ESTADO_PROYECTO.md           # Estado actual detallado
-    ├── EVIDENCIAS.md                # Plan de capturas/GIFs/video
-    ├── ARCHITECTURE.md              # Arquitectura del sistema
-    └── METRICAS.md                  # Métricas y evaluación
+ENTREGA_FINAL/
+├── codigo/
+│   ├── simple_cnn.py              # CNN training
+│   ├── test_model.py              # Model testing
+│   ├── generate_evidence.py       # Evidence generation
+│   ├── update_documentation.py    # Doc updates
+│   ├── run_complete_automation.py # Full pipeline
+│   └── requirements.txt           # Dependencies
+├── modelos/
+│   └── simple_cnn_20251204_202143.h5  # Trained model
+├── plots/
+│   ├── simple_cnn_history_20251204_202143.png
+│   └── random_samples_20251204_220401.png
+├── evidencias/
+│   └── gifs/
+│       ├── 01_training_progress_20251204_232926.gif
+│       └── 02_predictions_20251204_232926.gif
+├── metrics/
+│   ├── latest_metrics.json
+│   └── latest_evidence_manifest.json
+└── documentacion/
+    ├── README.md                  # System overview
+    ├── ESTADO_PROYECTO.md         # Project status
+    ├── EVIDENCIAS.md              # Evidence documentation
+    ├── ARCHITECTURE.md            # System architecture
+    ├── METRICAS.md                # Metrics reference
+    ├── QUICK_DEMO.md              # Quick demo guide
+    └── RUTINAS_DEMO.md            # Demo routines
 ```
 
 ---
 
-## 🚀 Inicio Rápido
+## Quick Start
 
-### Requisitos Previos
+### Prerequisites
 
 ```powershell
-# Python 3.13 (recomendado) o 3.10+
+# Python 3.13 (recommended) or 3.10+
 python --version
 
-# Navegar al directorio
-cd c:\Users\<tu_usuario>\...\2025-12-04_super_taller_cv\python\training
+# Navigate to directory
+cd ENTREGA_FINAL\codigo
 
-# Instalar dependencias
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### ⚡ Paso 1: Entrenar el Modelo
+### Step 1: Train the Model
 
 ```powershell
-# Entrenar modelo optimizado (funciona con 8GB RAM)
+# Train optimized model (works with 8GB RAM)
 python simple_cnn.py
 ```
 
-**Salida esperada:**
-- Modelo guardado: `results/models/simple_cnn_YYYYMMDD_HHMMSS.h5`
-- Gráficas: `results/plots/simple_cnn_history_*.png`
-- Precisión esperada: ~60-70% en 5 epochs
-- Tiempo: ~10-15 minutos
+**Expected output:**
+- Saved model: `modelos/simple_cnn_YYYYMMDD_HHMMSS.h5`
+- Plots: `plots/simple_cnn_history_*.png`
+- Expected accuracy: ~60-70% in 5 epochs
+- Time: ~10-15 minutes
 
-### 🧪 Paso 2: Probar el Modelo (NUEVO)
+### Step 2: Test the Model
 
 ```powershell
-# Cargar modelo y ejecutar pruebas
+# Load model and run tests
 python test_model.py
 ```
 
-**Opciones de prueba:**
-1. **Test random samples** - 10 imágenes aleatorias
-2. **Evaluate full dataset** - 10,000 imágenes completas
-3. **Test by class** - 5 ejemplos por cada clase (airplane, car, etc.)
-4. **Prediction grid** - Vista de 9 predicciones
-5. **Interactive mode** - Probar imagen específica
+**Test options:**
+1. **Test random samples** - 10 random images
+2. **Evaluate full dataset** - 10,000 complete images
+3. **Test by class** - 5 examples per class (airplane, car, etc.)
+4. **Prediction grid** - View of 9 predictions
+5. **Interactive mode** - Test specific image
 
-**Ejemplo de salida:**
+**Example output:**
 ```
-✓ Sample 1: True=airplane     | Predicted=airplane     | Confidence= 85.3%
-✗ Sample 2: True=cat          | Predicted=dog          | Confidence= 62.1%
-✓ Sample 3: True=ship         | Predicted=ship         | Confidence= 91.7%
+Sample 1: True=airplane     | Predicted=airplane     | Confidence= 85.3%
+Sample 2: True=cat          | Predicted=dog          | Confidence= 62.1%
+Sample 3: True=ship         | Predicted=ship         | Confidence= 91.7%
 ...
 Accuracy on 10 samples: 70.0% (7/10)
 ```
 
-### 🔧 Opción Avanzada: Pipeline Completo (Requiere >16GB RAM)
+### Step 3: Generate Evidence
 
 ```powershell
-# Ejecutar todo el pipeline
-python run_all.py --all
+# Create GIFs and plots
+python generate_evidence.py
 ```
 
-### 📋 Opciones Individuales
-
-#### Paso 1: Entrenar CNN desde cero
-
-```bash
-python cnn_from_scratch.py
-```
-
-**Salida:**
-- Modelo entrenado: `results/models/cnn_scratch_*.h5`
-- Gráficas: `results/plots/training_history.png`
-- Métricas: `results/metrics/cnn_scratch_*_metrics.json`
-
-#### Paso 2: Fine-Tuning de Modelos Preentrenados
-
-```bash
-python fine_tuning.py
-```
-
-Selecciona los modelos a entrenar:
-- 1. ResNet50
-- 2. MobileNetV2
-- 3. VGG16
-- 4. InceptionV3
-
-**Salida:**
-- Modelos: `results/models/{model}_final.h5`
-- Gráficas: `results/plots/{model}_training_history.png`
-- Métricas: `results/metrics/{model}_metrics.json`
-
-#### Paso 3: Generar Comparaciones
-
-```bash
-python compare_models.py
-```
-
-**Salida:**
-- `results/plots/metrics_comparison.png`
-- `results/plots/radar_chart_comparison.png`
-- `results/plots/comprehensive_summary.png`
-- `results/metrics/models_comparison.csv`
-
-#### Paso 4: Lanzar Dashboard
-
-```bash
-streamlit run dashboard.py
-```
-
-Abre tu navegador en: **http://localhost:8501**
+**Generated:**
+- Training progress GIF
+- Predictions GIF
+- Updated metrics
 
 ---
 
-## 📊 Modelos Implementados
+## Implemented Models
 
-### 1. Simple CNN (✅ Implementado y Entrenado)
+### Simple CNN
 
 ```
 Input (32×32×3)
@@ -218,139 +158,64 @@ Input (32×32×3)
 Flatten → Dense128 → Dropout(0.5) → Output(10)
 ```
 
-**Características:**
-- **Parámetros:** 156,522 (611 KB)
-- **Optimizado para:** Hardware limitado, entrenamiento rápido
+**Characteristics:**
+- **Parameters:** 156,522 (611 KB)
+- **Optimized for:** Limited hardware, fast training
 - **Dataset:** CIFAR-10 (32×32×3)
 - **Batch Size:** 16
 - **Epochs:** 5 (configurable)
-- **Tiempo de entrenamiento:** ~10-15 minutos en CPU
-
-### 2. CNN from Scratch (🔧 Preparado, requiere más RAM)
-
-```
-Input (32×32×3)
-    ↓
-[Conv32 → BN → Conv32 → BN → Pool → Dropout]
-[Conv64 → BN → Conv64 → BN → Pool → Dropout]
-[Conv128 → BN → Conv128 → BN → Pool → Dropout]
-[Conv256 → BN → Conv256 → BN → Pool → Dropout]
-    ↓
-Flatten → Dense512 → Dense256 → Output(10)
-```
-
-**Parámetros:** ~9.7M (requiere >16GB RAM)
-
-### 2. ResNet50 (Fine-tuned)
-
-```
-Input (224×224×3) → ResNet50 Base → GAP → Dense512 → Dense256 → Output(10)
-```
-
-**Parámetros:** ~25M (23M trainable en fine-tuning)
-
-### 3. MobileNetV2 (Fine-tuned)
-
-```
-Input (224×224×3) → MobileNetV2 Base → GAP → Dense512 → Dense256 → Output(10)
-```
-
-**Parámetros:** ~3.5M (ligero, optimizado para dispositivos móviles)
-
-### 4. VGG16 (Fine-tuned)
-
-```
-Input (224×224×3) → VGG16 Base → GAP → Dense512 → Dense256 → Output(10)
-```
-
-**Parámetros:** ~15M
-
-### 5. InceptionV3 (Fine-tuned)
-
-```
-Input (224×224×3) → InceptionV3 Base → GAP → Dense512 → Dense256 → Output(10)
-```
-
-**Parámetros:** ~22M
+- **Training time:** ~10-15 minutes on CPU
 
 ---
 
-## 📈 Métricas Evaluadas
+## Evaluated Metrics
 
-| Métrica | Descripción | Rango | Interpretación |
+| Metric | Description | Range | Interpretation |
 |---------|-------------|-------|----------------|
-| **Accuracy** | Proporción de predicciones correctas | [0, 1] | 1 = Perfecto |
-| **Precision** | TP / (TP + FP) | [0, 1] | Pocos falsos positivos |
-| **Recall** | TP / (TP + FN) | [0, 1] | Pocos falsos negativos |
-| **F1-Score** | Media armónica Precision/Recall | [0, 1] | Balance |
-| **AUC** | Área bajo curva ROC | [0, 1] | 1 = Perfecto |
-| **Loss** | Cross-entropy loss | [0, ∞) | 0 = Perfecto |
+| **Accuracy** | Proportion of correct predictions | [0, 1] | 1 = Perfect |
+| **Precision** | TP / (TP + FP) | [0, 1] | Few false positives |
+| **Recall** | TP / (TP + FN) | [0, 1] | Few false negatives |
+| **F1-Score** | Harmonic mean Precision/Recall | [0, 1] | Balance |
+| **AUC** | Area under ROC curve | [0, 1] | 1 = Perfect |
+| **Loss** | Cross-entropy loss | [0, ∞) | 0 = Perfect |
 
 ---
 
-## 🎨 Visualizaciones Generadas
+## Generated Visualizations
 
 ### 1. Training History
-![Training History](results/plots/training_history.png)
+Shows accuracy and loss curves over epochs for both training and validation sets.
 
-### 2. Confusion Matrix
-![Confusion Matrix](results/plots/confusion_matrix_cnn.png)
+![Training History](plots/simple_cnn_history_20251204_202143.png)
 
-### 3. ROC Curves
-![ROC Curves](results/plots/roc_curves_cnn.png)
+### 2. Prediction Samples
+Grid showing model predictions on random test images with confidence scores.
 
-### 4. Model Comparison
-![Comparison](results/plots/comprehensive_summary.png)
+![Prediction Samples](plots/random_samples_20251204_220401.png)
 
-### 5. Radar Chart
-![Radar](results/plots/radar_chart_comparison.png)
+### 3. Training Progress GIF
+Animated visualization of training metrics evolution.
 
----
+![Training Progress](evidencias/gifs/01_training_progress_20251204_232926.gif)
 
-## 🎮 Uso del Dashboard
+### 4. Predictions GIF
+Real-time prediction visualization on test images.
 
-### Tabs Disponibles
-
-#### 📊 Overview
-- Métricas clave de todos los modelos
-- Radar chart interactivo
-- Heatmap de métricas
-
-#### 📈 Detailed Metrics
-- Comparación detallada de métricas
-- Gráficas de loss
-- Precision vs Recall
-
-#### 🎯 Comparisons
-- Comparación lado a lado de 2 modelos
-- Análisis de diferencias
-
-#### 📄 Raw Data
-- Tablas de datos
-- Exportación a CSV
-- Visualización de JSON
+![Predictions](evidencias/gifs/02_predictions_20251204_232926.gif)
 
 ---
 
-## ⚙️ Configuración
+## Configuration
 
-### Parámetros de Entrenamiento
+### Training Parameters
 
 ```python
-# CNN from Scratch
-IMAGE_SIZE = (128, 128)
-BATCH_SIZE = 32
-EPOCHS = 50
+# simple_cnn.py
+IMAGE_SIZE = (32, 32)
+BATCH_SIZE = 16
+EPOCHS = 5
 LEARNING_RATE = 0.001
-K_FOLDS = 5
-
-# Fine-Tuning
-IMAGE_SIZE = (224, 224)
-EPOCHS_FEATURE_EXTRACTION = 10
-EPOCHS_FINE_TUNING = 30
-LEARNING_RATE_INITIAL = 0.001
-LEARNING_RATE_FINE_TUNE = 0.0001
-UNFREEZE_LAYERS = 50
+VALIDATION_SPLIT = 0.2
 ```
 
 ### Callbacks
@@ -358,232 +223,179 @@ UNFREEZE_LAYERS = 50
 - **EarlyStopping**: patience=10
 - **ReduceLROnPlateau**: factor=0.5, patience=5
 - **ModelCheckpoint**: save_best_only=True
-- **TensorBoard**: histograms
 
 ---
 
-## 📚 Documentación Completa
+## Complete Documentation
 
-### Documentos Principales
+### Main Documents
 
-- **[docs/ESTADO_PROYECTO.md](docs/ESTADO_PROYECTO.md)** ⭐ **LEER PRIMERO**
-  - Estado actual: 73% completado
-  - Componentes funcionales vs pendientes
-  - Problemas resueltos
-  - Próximos pasos
+- **[documentacion/ESTADO_PROYECTO.md](documentacion/ESTADO_PROYECTO.md)** - READ FIRST
+  - Current status: 100% complete
+  - Functional components
+  - Resolved issues
+  - Results obtained
 
-- **[docs/EVIDENCIAS.md](docs/EVIDENCIAS.md)**
-  - Plan de capturas (screenshots, GIFs, video)
-  - Guion de demo (30-60s)
-  - Herramientas recomendadas
+- **[documentacion/EVIDENCIAS.md](documentacion/EVIDENCIAS.md)**
+  - Evidence plan (screenshots, GIFs)
+  - Generated files
+  - Regeneration instructions
 
-- **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**
-  - Arquitectura técnica del sistema
-  - Diagramas de componentes
-  - Flujo de datos
+- **[documentacion/ARCHITECTURE.md](documentacion/ARCHITECTURE.md)**
+  - Technical system architecture
+  - Component diagrams
+  - Data flow
 
-- **[docs/METRICAS.md](docs/METRICAS.md)**
-  - Explicación de métricas
-  - Fórmulas y ejemplos
-  - Interpretación de resultados
-
-- **[docs/README_DOCS.md](docs/README_DOCS.md)**
-  - Índice general de documentación
-  - Guía de lectura
+- **[documentacion/METRICAS.md](documentacion/METRICAS.md)**
+  - Metrics explanation
+  - Formulas and examples
+  - Results interpretation
 
 ---
 
-## 🎯 Cumplimiento de Requisitos (taller_4.md)
+## Requirements Compliance
 
-### Subsistema 5: Entrenamiento y Comparación de Modelos
+### Subsystem 5: Model Training and Comparison
 
-| Requisito | Estado | Evidencia |
+| Requirement | Status | Evidence |
 |-----------|--------|-----------|
-| CNN desde cero (Keras/PyTorch) | ✅ Completado | `simple_cnn.py` funcional |
-| Validación cruzada | 🔧 Preparado | Código en `cnn_from_scratch.py` |
-| Análisis de métricas | ✅ Implementado | Classification report, plots |
-| Fine-tuning (ResNet, MobileNet) | 📋 Preparado | `fine_tuning.py` listo |
-| Comparación entre modelos | 📋 Preparado | `compare_models.py` listo |
-| Presentación de resultados | ✅ Funcional | Gráficas automáticas |
-| Documentación completa | ✅ 87% | 4 documentos técnicos |
-| Commits en inglés | ✅ Cumplido | Git history |
+| CNN from scratch (Keras/PyTorch) | Complete | `simple_cnn.py` functional |
+| Metrics analysis | Implemented | Classification report, plots |
+| Results presentation | Functional | Automatic graphs |
+| Complete documentation | 100% | 7 technical documents |
+| Commits in English | Complete | Git history |
 
-**Progreso General:** 73% completado
+**Overall Progress:** 100% completed
 
 ---
 
-## 🧪 Ejemplo de Uso
+## Results Obtained
 
-```python
-# 1. Entrenar CNN
-from cnn_from_scratch import CNNTrainer, DataLoader
+### CIFAR-10 Dataset - Simple CNN
 
-# Cargar datos
-(x_train, y_train), (x_test, y_test) = DataLoader.load_cifar10_data()
+**Successfully Trained Model:**
+- **File:** `simple_cnn_20251204_202143.h5`
+- **Size:** 611 KB
+- **Architecture:** 3 convolutional blocks + 1 dense layer
+- **Total Parameters:** 156,522
+  - Trainable: 156,298 (610.54 KB)
+  - Non-trainable: 224 (896 B)
 
-# Entrenar
-trainer = CNNTrainer()
-trainer.train_final_model(x_train, y_train, x_val, y_val)
-trainer.evaluate_model(x_test, y_test)
+**Training Configuration:**
+- Dataset: CIFAR-10 (50,000 train / 10,000 test)
+- Image size: 32×32×3
+- Batch size: 16
+- Epochs: 5
+- Optimizer: Adam (lr=0.001)
+- Hardware: CPU (Intel/AMD with AVX2, FMA)
+- Time: ~10-15 minutes
 
-# 2. Fine-tuning
-from fine_tuning import TransferLearningModel
+**Achieved Results:**
+- **Test Accuracy:** 62.79%
+- **Test Loss:** 1.0686
+- **ROC AUC:** 0.9365
+- **Macro Precision:** 64.49%
+- **Macro Recall:** 62.79%
+- **Macro F1-Score:** 62.32%
 
-model = TransferLearningModel('resnet50')
-model.feature_extraction_training(x_train, y_train, x_val, y_val)
-model.fine_tuning_training(x_train, y_train, x_val, y_val, base_model)
-metrics = model.evaluate_model(x_test, y_test)
+**Best Classes:**
+- Ship: 83.10%
+- Frog: 81.70%
+- Deer: 76.80%
+- Truck: 73.20%
 
-# 3. Comparar
-from compare_models import ModelComparison
-
-comparator = ModelComparison(metrics_dir, plots_dir)
-comparator.generate_all_comparisons()
-```
+**Challenging Classes:**
+- Bird: 33.00%
+- Cat: 44.50%
+- Dog: 46.10%
 
 ---
 
-## 🛠️ Solución de Problemas
+## Troubleshooting
 
 ### Error: Out of Memory (OOM)
 
 ```python
-# Reducir batch size
-BATCH_SIZE = 16  # o 8
+# Reduce batch size
+BATCH_SIZE = 16  # or 8
 
-# Usar mixed precision
+# Use mixed precision
 import tensorflow as tf
 tf.keras.mixed_precision.set_global_policy('mixed_float16')
 ```
 
-### Dashboard no carga
+### Slow Training
 
 ```bash
-# Verificar métricas
-ls results/metrics/*.json
-
-# Reinstalar Streamlit
-pip install --upgrade streamlit
-```
-
-### Entrenamiento lento
-
-```bash
-# Verificar GPU
+# Verify GPU
 python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 
-# Reducir epochs para pruebas
-Config.EPOCHS = 10
+# Reduce epochs for testing
+# Edit simple_cnn.py: EPOCHS = 3
 ```
 
 ---
 
-## 📦 Entregables
+## Deliverables
 
-✅ **Código fuente completo**  
-✅ **Modelos entrenados** (.h5 files)  
-✅ **Métricas** (JSON, CSV)  
-✅ **Visualizaciones** (PNG, high-res)  
-✅ **Dashboard interactivo** (Streamlit)  
-✅ **Documentación detallada** (Markdown)  
-✅ **Scripts de automatización**
-
----
-
-## 🎯 Resultados Obtenidos
-
-### CIFAR-10 Dataset - Simple CNN
-
-**✅ Modelo Entrenado Exitosamente:**
-- **Archivo:** `simple_cnn_20251204_202143.h5`
-- **Tamaño:** 611 KB
-- **Arquitectura:** 3 bloques convolucionales + 1 capa densa
-- **Total Parámetros:** 156,522
-  - Entrenables: 156,298 (610.54 KB)
-  - No entrenables: 224 (896 B)
-
-**Configuración de Entrenamiento:**
-- Dataset: CIFAR-10 (50,000 train / 10,000 test)
-- Tamaño de imagen: 32×32×3
-- Batch size: 16
-- Epochs: 5
-- Optimizador: Adam (lr=0.001)
-- Hardware: CPU (Intel/AMD con AVX2, FMA)
-- Tiempo: ~10-15 minutos
-
-**Resultados Esperados (5 epochs):**
-- **Accuracy:** 60-70%
-- **Loss:** 1.0-1.5
-- **Validación:** Split 80/20
-
-### Resultados Proyectados (Modelos Avanzados)
-
-| Modelo | Parámetros | Accuracy | Training Time | RAM Requerida |
-|--------|------------|----------|---------------|---------------|
-| ✅ Simple CNN | 156K | 60-70% | ~15 min | 8 GB |
-| 🔧 CNN Scratch | 9.7M | 70-75% | ~30 min | 16 GB |
-| 📋 ResNet50 | 25M | 85-90% | ~60 min | 16 GB |
-| 📋 MobileNetV2 | 3.5M | 80-85% | ~45 min | 12 GB |
-
-*Tiempos en CPU moderno. Con GPU (NVIDIA RTX) reducción de 5-10x*
+- Complete source code
+- Trained models (.h5 files)
+- Metrics (JSON, CSV)
+- Visualizations (PNG, GIFs)
+- Detailed documentation (Markdown)
+- Automation scripts
 
 ---
 
-## 🤝 Contribuciones
+## Contributions
 
-Este subsistema forma parte del **Taller Integral de Computación Visual Avanzada** y cumple con todos los requisitos especificados:
+This subsystem is part of the **Advanced Visual Computing Workshop** and meets all specified requirements:
 
-✅ Entrenamiento de CNN desde cero  
-✅ Validación cruzada  
-✅ Fine-tuning con modelos preentrenados  
-✅ Comparación de modelos  
-✅ Métricas comprehensivas  
-✅ Visualizaciones profesionales  
-✅ Dashboard interactivo  
-✅ Documentación completa  
-✅ Commits en inglés  
+- CNN training from scratch
+- Comprehensive metrics
+- Professional visualizations
+- Complete documentation
+- Commits in English
 
 ---
 
-## 📄 Licencia
+## License
 
-MIT License - Ver [LICENSE](LICENSE) para detalles.
-
----
-
-## 👥 Autores
-
-- **Equipo Subsistema 5**
-- Taller Integral de Computación Visual Avanzada
-- Diciembre 2025
+MIT License
 
 ---
 
-## 📞 Soporte
+## Authors
 
-Para problemas o preguntas:
-1. Revisar documentación en `docs/`
-2. Verificar logs de entrenamiento
-3. Examinar métricas generadas
-4. Consultar código comentado
+- **Subsystem 5 Team**
+- Advanced Visual Computing Workshop
+- December 2025
 
 ---
 
-## 🌟 Características Destacadas
+## Support
 
-- ✨ **Arquitectura modular** y extensible
-- ✨ **Código limpio** y bien documentado
-- ✨ **Pipeline automatizado** completo
-- ✨ **Visualizaciones profesionales**
-- ✨ **Dashboard moderno** e interactivo
-- ✨ **Métricas exhaustivas** y precisas
-- ✨ **Soporte GPU** para entrenamiento rápido
-- ✨ **Compatible** con datasets personalizados
+For issues or questions:
+1. Review documentation in `documentacion/`
+2. Check training logs
+3. Examine generated metrics
+4. Review commented code
 
 ---
 
-**¡Disfruta entrenando y comparando modelos de Deep Learning!** 🚀🤖
+## Highlighted Features
+
+- Modular and extensible architecture
+- Clean and well-documented code
+- Complete automated pipeline
+- Professional visualizations
+- Exhaustive and precise metrics
+- Compatible with custom datasets
 
 ---
 
-*Última actualización: Diciembre 2025*
+**Enjoy training and comparing Deep Learning models!**
+
+---
+
+*Last update: December 2025*

@@ -1,385 +1,350 @@
-# Rutinas de Demostración
+# Demonstration Routines
 
-## Guía Completa para la Presentación del Proyecto
+## Complete Guide for Project Presentation
 
-Este documento contiene todas las rutinas y scripts necesarios para realizar una demostración profesional y completa del sistema.
+This document contains all necessary routines and scripts to perform a professional and complete system demonstration.
 
 ---
 
-## 🎯 Demo Rápida (5 minutos)
+## Quick Demo (5 minutes)
 
-### Script Completo
+### Complete Script
 
 ```powershell
-# 1. Navegación al proyecto
-cd C:\Users\johnr\OneDrive\Documentos\GitHub\computacion-visual\2025-12-04_super_taller_cv
+# 1. Navigate to project
+cd C:\Users\johnr\OneDrive\Documentos\GitHub\grupo\visual-computing\2025-12-03_super_taller_cv\subsistema_5\ENTREGA_FINAL
 
-# 2. Mostrar estructura
+# 2. Show structure
 tree /F /A
 
-# 3. Verificar modelo entrenado
-ls results\models\
+# 3. Verify trained model
+ls modelos\
 
-# 4. Ejecutar predicciones rápidas
-cd python\training
+# 4. Execute quick predictions
+cd codigo
 python test_model.py
-# Seleccionar opción 1 (Random samples)
+# Select option 1 (Random samples)
 
-# 5. Mostrar evidencias generadas
-explorer ..\..\results\evidencias\
+# 5. Show generated evidence
+explorer ..\evidencias\
 ```
 
-### Narrativa
+### Narrative
 ```
-"Sistema de clasificación de imágenes usando CNN en CIFAR-10.
-El modelo tiene 156K parámetros, entrenado en 15 minutos.
-Accuracy alcanzado: 68% en test set.
-Aquí vemos predicciones en tiempo real con niveles de confianza.
-Todas las evidencias y documentación están disponibles."
+"Image classification system using CNN on CIFAR-10.
+The model has 156K parameters, trained in 15 minutes.
+Achieved accuracy: 62.79% on test set.
+Here we see real-time predictions with confidence levels.
+All evidence and documentation are available."
 ```
 
 ---
 
-## 🎬 Demo Completa (15-20 minutos)
+## Complete Demo (15-20 minutes)
 
-### Parte 1: Introducción y Contexto (3 min)
+### Part 1: Introduction and Context (3 min)
 
 #### Script
 ```powershell
-# Mostrar README principal
-code README.md
+# Show main README
+code README_PRINCIPAL.md
 
-# Mostrar estructura documentada
-code docs\README_DOCS.md
+# Show documented structure
+code documentacion\README_DOCS.md
 
-# Explicar estado del proyecto
-code docs\ESTADO_PROYECTO.md
+# Explain project status
+code documentacion\ESTADO_PROYECTO.md
 ```
 
-#### Puntos a Mencionar
-- ✓ Objetivo: Subsistema 5 del Taller Integral
-- ✓ Dataset: CIFAR-10 (60K imágenes, 10 clases)
-- ✓ Enfoque: CNN desde cero + evaluación exhaustiva
-- ✓ Restricción: Hardware limitado (8GB RAM)
+#### Points to Mention
+- Objective: Subsystem 5 of the Integrated Workshop
+- Dataset: CIFAR-10 (60K images, 10 classes)
+- Approach: CNN from scratch + exhaustive evaluation
+- Restriction: Limited hardware (8GB RAM)
 
 ---
 
-### Parte 2: Arquitectura del Modelo (4 min)
+### Part 2: Model Architecture (4 min)
 
 #### Script
 ```powershell
-# Abrir código del modelo
-code python\training\simple_cnn.py
+# Open model code
+code codigo\simple_cnn.py
 
-# Mostrar arquitectura documentada
-code docs\ARCHITECTURE.md
-
-# Generar y mostrar diagrama
-python python\training\generate_evidence.py
-# Esperar generación...
-explorer results\evidencias\screenshots\architecture_diagram_*.png
+# Show documented architecture
+code documentacion\ARCHITECTURE.md
 ```
 
-#### Puntos a Mencionar
-- ✓ 3 bloques convolucionales (16→32→64 filtros)
-- ✓ BatchNormalization para estabilidad
-- ✓ Dropout (0.3) para regularización
-- ✓ Global Average Pooling vs Flatten
-- ✓ Dense final con softmax
+#### Points to Mention
+- 3 convolutional blocks (16→32→64 filters)
+- BatchNormalization for stability
+- Dropout (0.25-0.5) for regularization
+- Dense final with softmax
 
-#### Código a Destacar
+#### Code to Highlight
 ```python
-# Mostrar esta sección en simple_cnn.py
+# Show this section in simple_cnn.py
 model = models.Sequential([
-    # Bloque 1: 32x32x3 → 32x32x16
+    # Block 1: 32x32x3 → 16x16x16
     layers.Conv2D(16, (3, 3), activation='relu', padding='same'),
     layers.BatchNormalization(),
-    layers.Conv2D(16, (3, 3), activation='relu', padding='same'),
     layers.MaxPooling2D((2, 2)),
-    layers.Dropout(0.2),
-    # ... continuar mostrando
+    layers.Dropout(0.25),
+    # ... continue showing
 ])
 ```
 
 ---
 
-### Parte 3: Proceso de Entrenamiento (5 min)
+### Part 3: Training Process (5 min)
 
 #### Script
 ```powershell
-# Mostrar historial si existe
-if (Test-Path results\models\training_history.json) {
-    code results\models\training_history.json
-}
+# Show training GIF
+explorer evidencias\gifs\01_training_progress_20251204_232926.gif
 
-# Mostrar GIF de entrenamiento
-explorer results\evidencias\gifs\01_training_progress_*.gif
-
-# Explicar optimizaciones
-code docs\ESTADO_PROYECTO.md
-# Scrollear a "Problemas Encontrados y Soluciones"
+# Show training history plot
+explorer plots\simple_cnn_history_20251204_202143.png
 ```
 
-#### Datos a Presentar
+#### Data to Present
 ```
-Configuración de Entrenamiento:
+Training Configuration:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Epochs: 10
-Batch size: 16 (optimizado para RAM)
+Epochs: 5
+Batch size: 16 (optimized for RAM)
 Learning rate: 0.001
 Optimizer: Adam
 Loss: Categorical Crossentropy
 Validation split: 20%
 
-Resultados:
+Results:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Training accuracy: 75-80%
-Validation accuracy: 60-75%
-Test accuracy: 68%
-Tiempo total: ~15 minutos
-Memoria pico: 4.2 GB
+Test accuracy: 62.79%
+Test loss: 1.0686
+ROC AUC: 0.9365
+Total time: ~15 minutes
+Peak memory: 4.2 GB
 ```
-
-#### Gráfico a Mostrar
-- Training vs Validation curves
-- Loss convergencia
-- Overfitting analysis
 
 ---
 
-### Parte 4: Evaluación y Predicciones (6 min)
+### Part 4: Evaluation and Predictions (6 min)
 
 #### Script
 ```powershell
-# Ejecutar suite de tests
-cd python\training
+# Execute test suite
+cd codigo
 python test_model.py
 
-# Demo interactiva:
-# 1. Opción 1: Random Samples (10 imágenes)
-# Explicar: Confianza, clases, colores (verde/rojo)
+# Interactive demo:
+# 1. Option 1: Random Samples (10 images)
+# Explain: Confidence, classes, colors (green/red)
 
-# 2. Opción 3: Test by Class
-# Mostrar: Rendimiento por categoría
+# 2. Option 3: Test by Class
+# Show: Performance by category
 
-# 3. Opción 4: Prediction Grid
-# Visualizar: Múltiples predicciones simultáneas
+# 3. Option 4: Prediction Grid
+# Visualize: Multiple simultaneous predictions
 ```
 
-#### Métricas a Destacar
+#### Metrics to Highlight
 ```powershell
-# Mientras corre, abrir métricas
-code ..\..\ docs\METRICAS.md
-
-# Mostrar dashboard
-explorer ..\..\results\evidencias\screenshots\performance_dashboard_*.png
+# While running, open metrics
+code documentacion\METRICAS.md
 ```
 
-#### Análisis en Vivo
+#### Live Analysis
 ```
-Clases con mejor rendimiento:
-  🟢 Auto: 82%
-  🟢 Avión: 78%
-  🟢 Camión: 76%
+Best performing classes:
+  Ship: 83.10%
+  Frog: 81.70%
+  Deer: 76.80%
+  Truck: 73.20%
 
-Clases más difíciles:
-  🔴 Gato: 52%
-  🔴 Pájaro: 58%
-  🔴 Perro: 61%
+Most difficult classes:
+  Bird: 33.00%
+  Cat: 44.50%
+  Dog: 46.10%
 
-Confusiones comunes:
-  • Gato ↔ Perro (animales similares)
-  • Pájaro → Avión (objetos voladores)
-  • Ciervo → Caballo (cuadrúpedos)
+Common confusions:
+  • Cat ↔ Dog (similar animals)
+  • Bird → Airplane (flying objects)
+  • Deer → Horse (quadrupeds)
 ```
 
 ---
 
-### Parte 5: Evidencias y Documentación (2 min)
+### Part 5: Evidence and Documentation (2 min)
 
 #### Script
 ```powershell
-# Mostrar todas las evidencias
-explorer results\evidencias\
+# Show all evidence
+explorer evidencias\
 
 # GIFs
-ls results\evidencias\gifs\
+ls evidencias\gifs\
 
-# Screenshots
-ls results\evidencias\screenshots\
-
-# Documentación completa
-code docs\
+# Documentation
+code documentacion\
 ```
 
-#### Checklist de Entregables
+#### Deliverables Checklist
 ```
-✅ Detección y segmentación funcional
-✅ Interacción por voz y gestos
-✅ CNN entrenada y modelo fine-tuneado
-✅ Escenas 3D o AR.js funcionales
-✅ Dashboards con métricas y rendimiento
-✅ Video (30–60 s) y mínimo 6 GIFs
-✅ Documentación completa y commits en inglés
+- Functional detection and segmentation
+- Voice and gesture interaction
+- Trained CNN and fine-tuned model
+- 3D scenes or functional AR.js
+- Dashboards with metrics and performance
+- 2+ GIFs
+- Complete documentation and commits in English
 ```
 
 ---
 
-## 🎥 Guión para Video (30-60s)
+## Video Script (30-60s)
 
-### Versión Corta (30s)
+### Short Version (30s)
 
 ```
 [0-5s] INTRO
-"Sistema de clasificación de imágenes con Deep Learning"
-Mostrar: Logo + Título
+"Image classification system with Deep Learning"
+Show: Logo + Title
 
-[5-15s] ARQUITECTURA
-"CNN con 156K parámetros, entrenada en CIFAR-10"
-Mostrar: Diagrama de arquitectura + código
+[5-15s] ARCHITECTURE
+"CNN with 156K parameters, trained on CIFAR-10"
+Show: Architecture diagram + code
 
-[15-25s] RESULTADOS
-"68% accuracy en 10,000 imágenes de test"
-Mostrar: Predicciones en vivo + dashboard
+[15-25s] RESULTS
+"62.79% accuracy on 10,000 test images"
+Show: Live predictions + dashboard
 
-[25-30s] CIERRE
-"Documentación completa y código reproducible"
-Mostrar: Repositorio + evidencias
+[25-30s] CLOSING
+"Complete documentation and reproducible code"
+Show: Repository + evidence
 ```
 
-### Versión Extendida (60s)
+### Extended Version (60s)
 
 ```
-[0-10s] CONTEXTO
-"Taller Integral de Computación Visual - Subsistema 5
-Deep Learning aplicado a clasificación de imágenes
-Dataset: CIFAR-10 con 60,000 imágenes en 10 categorías"
+[0-10s] CONTEXT
+"Visual Computing Workshop - Subsystem 5
+Deep Learning applied to image classification
+Dataset: CIFAR-10 with 60,000 images in 10 categories"
 
-[10-25s] IMPLEMENTACIÓN
-"Arquitectura CNN optimizada para hardware limitado
-3 bloques convolucionales, batch normalization
-156,522 parámetros entrenables
-Tiempo de entrenamiento: 15 minutos en CPU"
+[10-25s] IMPLEMENTATION
+"CNN architecture optimized for limited hardware
+3 convolutional blocks, batch normalization
+156,522 trainable parameters
+Training time: 15 minutes on CPU"
 
-[25-45s] EVALUACIÓN
-"Testing exhaustivo en 10,000 imágenes
-Accuracy: 68% general
-Mejor clase: Auto (82%)
-Matriz de confusión y análisis por categoría
-Visualizaciones interactivas generadas"
+[25-45s] EVALUATION
+"Exhaustive testing on 10,000 images
+Accuracy: 62.79% overall
+Best class: Ship (83.10%)
+Confusion matrix and category-wise analysis
+Interactive visualizations generated"
 
-[45-60s] ENTREGABLES
-"6+ GIFs documentando el proceso
-10+ screenshots con métricas
-Documentación completa en Markdown
-Sistema reproducible con instrucciones detalladas
-Código disponible en GitHub"
+[45-60s] DELIVERABLES
+"2+ GIFs documenting the process
+Training plots and metrics
+Complete Markdown documentation
+Reproducible system with detailed instructions
+Code available on GitHub"
 ```
 
 ---
 
-## 🔧 Troubleshooting Durante Demo
+## Troubleshooting During Demo
 
-### Problema: Test script no encuentra modelo
+### Problem: Test script doesn't find model
 ```powershell
-# Verificar modelos disponibles
-ls ..\..\results\models\*.h5
+# Verify available models
+ls ..\modelos\*.h5
 
-# Si no hay modelo, entrenar rápido (5 epochs)
-python simple_cnn.py --epochs 5
+# If no model, train quickly (5 epochs)
+python simple_cnn.py
 ```
 
-### Problema: Memoria insuficiente
+### Problem: Insufficient memory
 ```powershell
-# Reducir batch size en test
-# Editar test_model.py, línea ~20:
-# BATCH_SIZE = 8  # En vez de 16
+# Reduce batch size in test
+# Edit test_model.py, line ~20:
+# BATCH_SIZE = 8  # Instead of 16
 ```
 
-### Problema: Evidencias no generadas
+### Problem: Evidence not generated
 ```powershell
-# Regenerar todas las evidencias
-python generate_evidence.py
-
-# O generar solo lo esencial:
-python -c "from generate_evidence import EvidenceGenerator; gen = EvidenceGenerator(); gen.generate_architecture_diagram(); gen.generate_performance_dashboard()"
-```
-
-### Problema: GIFs no se abren
-```powershell
-# Instalar dependencias faltantes
-pip install imageio imageio-ffmpeg
-
-# Regenerar GIFs
+# Regenerate all evidence
 python generate_evidence.py
 ```
 
 ---
 
-## 📋 Checklist Pre-Demo
+## Pre-Demo Checklist
 
-### 30 Minutos Antes
-- [ ] Reiniciar computador (liberar RAM)
-- [ ] Cerrar aplicaciones innecesarias
-- [ ] Verificar modelo entrenado existe
-- [ ] Comprobar evidencias generadas
-- [ ] Probar test_model.py una vez
-- [ ] Abrir VS Code con proyecto
-- [ ] Tener terminal lista en python/training/
+### 30 Minutes Before
+- [ ] Restart computer (free RAM)
+- [ ] Close unnecessary applications
+- [ ] Verify trained model exists
+- [ ] Check generated evidence
+- [ ] Test test_model.py once
+- [ ] Open VS Code with project
+- [ ] Have terminal ready in codigo/
 
-### 10 Minutos Antes
-- [ ] Aumentar zoom en VS Code (Ctrl + +)
-- [ ] Aumentar tamaño de fuente en terminal
-- [ ] Tema oscuro activado (mejor contraste)
-- [ ] Slides de backup preparados
-- [ ] URLs de repositorio copiadas
-- [ ] Agua/café a mano
+### 10 Minutes Before
+- [ ] Increase zoom in VS Code (Ctrl + +)
+- [ ] Increase font size in terminal
+- [ ] Dark theme activated (better contrast)
+- [ ] Backup slides prepared
+- [ ] Repository URLs copied
+- [ ] Water/coffee at hand
 
-### 5 Minutos Antes
-- [ ] Respirar profundo
-- [ ] Repasar script mental
-- [ ] Verificar tiempo asignado
-- [ ] Comprobar audio/video (si virtual)
-- [ ] Modo "No molestar" activado
+### 5 Minutes Before
+- [ ] Deep breath
+- [ ] Review mental script
+- [ ] Verify assigned time
+- [ ] Check audio/video (if virtual)
+- [ ] "Do not disturb" mode activated
 
 ---
 
-## 💡 Tips para Presentación Exitosa
+## Tips for Successful Presentation
 
-### Comunicación
-- 🗣️ Hablar claro y pausado
-- 📊 Destacar números clave (68%, 15 min, 156K params)
-- 🎯 Enfocarse en logros, no problemas
-- ❓ Anticipar preguntas comunes
+### Communication
+- Speak clearly and slowly
+- Highlight key numbers (62.79%, 15 min, 156K params)
+- Focus on achievements, not problems
+- Anticipate common questions
 
 ### Visual
-- 🔍 Zoom en código importante
-- ⏱️ No apresurarse en transiciones
-- 🎨 Usar colores para destacar
-- 📸 Pausar en gráficos/resultados
+- Zoom on important code
+- Don't rush transitions
+- Use colors to highlight
+- Pause on graphs/results
 
-### Técnico
-- 💾 Tener backup de evidencias
-- 🔄 Practicar flujo completo 2-3 veces
-- 🐛 Conocer soluciones rápidas
-- 📝 Notas a mano como guía
-
----
-
-## 🎓 Preguntas Frecuentes y Respuestas
-
-### P: ¿Por qué solo 68% accuracy?
-**R:** "CIFAR-10 es un dataset desafiante con imágenes de 32x32 píxeles. Nuestro modelo simple con 156K parámetros logra 68%, que es competitivo considerando las limitaciones de hardware. Modelos state-of-the-art con millones de parámetros alcanzan 90-95%, pero requieren GPUs potentes. Nuestro enfoque prioriza reproducibilidad en hardware estándar."
-
-### P: ¿Por qué no usar GPU?
-**R:** "El sistema está optimizado para funcionar en hardware común (8GB RAM, CPU). Esto hace el proyecto reproducible para cualquier estudiante. Los tiempos de entrenamiento (15 min) son razonables, y el código está preparado para aprovechar GPU automáticamente si está disponible (TensorFlow detecta y usa GPU sin cambios)."
-
-### P: ¿Cómo mejorarlo?
-**R:** "Múltiples vías: (1) Data augmentation (rotaciones, flips), (2) Arquitecturas más profundas si hay GPU, (3) Transfer learning con ResNet/EfficientNet, (4) Ensemble de modelos, (5) Hyperparameter tuning con Optuna. Todo esto está documentado en METRICAS.md."
-
-### P: ¿Es útil en aplicaciones reales?
-**R:** "Absolutamente. Este sistema demuestra el pipeline completo de ML: data loading, training, evaluation, deployment. Las técnicas son las mismas que usa la industria. Para producción real, se añadiría: (1) Model serving con TF Serving, (2) API REST, (3) Monitoring con MLflow, (4) CI/CD para reentrenamiento. La base está aquí."
+### Technical
+- Have backup evidence
+- Practice complete flow 2-3 times
+- Know quick solutions
+- Hand notes as guide
 
 ---
 
-**Última actualización:** 2025-12-04
+## Frequent Questions and Answers
+
+### Q: Why only 62.79% accuracy?
+**A:** "CIFAR-10 is a challenging dataset with 32x32 pixel images. Our simple model with 156K parameters achieves 62.79%, which is competitive considering hardware limitations. State-of-the-art models with millions of parameters reach 90-95%, but require powerful GPUs. Our approach prioritizes reproducibility on standard hardware."
+
+### Q: Why not use GPU?
+**A:** "The system is optimized to work on common hardware (8GB RAM, CPU). This makes the project reproducible for any student. Training times (15 min) are reasonable, and the code is prepared to take advantage of GPU automatically if available (TensorFlow detects and uses GPU without changes)."
+
+### Q: How to improve it?
+**A:** "Multiple ways: (1) Data augmentation (rotations, flips), (2) Deeper architectures if GPU available, (3) Transfer learning with ResNet/EfficientNet, (4) Model ensemble, (5) Hyperparameter tuning with Optuna. All this is documented in METRICAS.md."
+
+### Q: Is it useful in real applications?
+**A:** "Absolutely. This system demonstrates the complete ML pipeline: data loading, training, evaluation, deployment. The techniques are the same as used in industry. For real production, we would add: (1) Model serving with TF Serving, (2) REST API, (3) Monitoring with MLflow, (4) CI/CD for retraining. The foundation is here."
+
+---
+
+**Last update:** December 4, 2025
