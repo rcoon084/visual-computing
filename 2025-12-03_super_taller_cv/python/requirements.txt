@@ -2,3 +2,7 @@ ultralytics
 opencv-python
 numpy
 pyyaml
+SpeechRecognition
+pyaudio
+pyttsx3
+tkinter

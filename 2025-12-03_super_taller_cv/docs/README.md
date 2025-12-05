@@ -202,3 +202,145 @@ Módulo independiente accesible vía `ar.html`.
 <p align="center">
   <img src="../results/ar_hiro_marker_detection.gif" width="100%" alt="AR Tracking GIF">
 </p>
+
+# Subsistema 4: Control por Voz (Reconocimiento y Comandos)
+
+## Descripción del Proyecto
+
+El Subsistema 4 es el módulo responsable del **control por voz** dentro del proyecto de Computación Visual Avanzada. Su función es interpretar comandos hablados en español y convertirlos en **eventos estructurados (JSON)** que pueden ser utilizados por otros subsistemas como:
+
+- Visualización 3D (Subsistema 3)
+- Detección (Subsistema 1)
+- Gestos (Subsistema 2)
+- Dashboards
+
+El sistema reconoce palabras clave, ejecuta acciones internas, responde con voz sintetizada y genera archivos JSON en tiempo real con el comando detectado.
+
+Este subsistema está diseñado para ser **autónomo**, simple y de alto rendimiento.
+
+---
+
+## Stack Tecnológico
+
+**Actualización:** Ahora incluye interfaz gráfica (Tkinter) y soporte multihilo.
+
+- **Reconocimiento de Voz:** SpeechRecognition
+- **Entrada de Audio:** PyAudio
+- **Síntesis de Voz:** pyttsx3
+- **Serialización:** JSON
+- **Lenguaje:** Python 3.10+
+
+---
+
+## Funcionalidades Clave
+
+### A. Reconocimiento de Voz
+El sistema escucha el micrófono y procesa comandos en español usando el motor de Google Speech.
+
+- Captura en tiempo real
+- Detección continua
+- Normalización automática del audio
+
+### B. Comandos Inteligentes
+El subsistema reconoce palabras clave como:
+
+| Palabra detectada | Acción JSON |
+|------------------|-------------|
+| luz, iluminar | change_light |
+| rotar, girar | rotate_model |
+| escala | scale_model |
+| aumentar | scale_up |
+| disminuir | scale_down |
+| color | change_color |
+
+Estos comandos pueden ser ampliados según las necesidades del proyecto.
+
+### C. Respuesta por Voz (TTS)
+El sistema confirma el comando reconocido:
+
+> "Comando recibido: rotate model"
+
+### D. Exportación de Datos (JSON)
+Cada comando detectado se exporta como:
+
+```json
+{
+    "timestamp": 1701546541.554,
+    "command": "rotate_model"
+}
+```
+
+Archivo generado en:
+```
+results/last_command.json
+```
+---
+
+## Interfaz Gráfica (Tkinter)
+
+El subsistema ahora incluye una **interfaz gráfica sencilla y funcional**, desarrollada con Tkinter.
+
+### Características:
+- Ventana con modo oscuro.
+- Estados: **Inactivo / Escuchando**.
+- Historial de comandos detectados.
+- Botones *Iniciar* y *Detener* escucha.
+- Exportación JSON inmediata.
+
+### Ejecución de la interfaz
+
+```
+python Submodulo_4.py
+
+```
+
+## Instrucciones de Ejecución
+
+### 1. Prerrequisitos
+- Python 3.10+
+- Micrófono funcional
+- pip actualizado
+
+### 2. Instalar dependencias
+```
+pip install -r requirements.txt
+```
+
+### 3. Ejecutar el Subsistema
+```
+python main.py
+```
+
+Cuando esté activo, el programa mostrará:
+
+```
+Escuchando...
+```
+
+Di un comando como:
+- "rotar"
+- "luz"
+- "cambiar color"
+
+### 4. Salir del programa
+Presiona **CTRL + C**.
+
+---
+
+## Evidencias
+
+### **Fig 1. Reconocimiento de voz y respuesta por consola**
+
+![alt text](../results/4_evidencia_audio.gif)
+
+---
+
+## Estado del Subsistema
+
+**Subsistema completado – Autónomo – Totalmente integrable con otros módulos.**
+
+Compatible con:
+- Control de escenas 3D
+- Sistemas basados en WebSockets
+- Sistemas de interacción multimodal
+- Dashboards Python
