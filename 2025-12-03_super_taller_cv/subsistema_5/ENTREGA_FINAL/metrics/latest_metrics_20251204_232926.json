@@ -1,0 +1,274 @@
+{
+  "timestamp": "20251204_232926",
+  "model_name": "simple_cnn_20251204_202143.h5",
+  "test_accuracy": 0.6279,
+  "eval_accuracy": 0.6279000043869019,
+  "test_loss": 1.0686341524124146,
+  "macro_precision": 0.6448576593552602,
+  "macro_recall": 0.6279000000000001,
+  "macro_f1": 0.623233760027486,
+  "roc_auc_ovr": 0.9365386944444444,
+  "per_class_accuracy": {
+    "Avión": 0.646,
+    "Auto": 0.615,
+    "Pájaro": 0.33,
+    "Gato": 0.445,
+    "Ciervo": 0.768,
+    "Perro": 0.461,
+    "Rana": 0.817,
+    "Caballo": 0.634,
+    "Barco": 0.831,
+    "Camión": 0.732
+  },
+  "confusion_matrix": [
+    [
+      646,
+      13,
+      54,
+      14,
+      63,
+      7,
+      15,
+      14,
+      143,
+      31
+    ],
+    [
+      34,
+      615,
+      4,
+      14,
+      10,
+      4,
+      31,
+      8,
+      92,
+      188
+    ],
+    [
+      75,
+      2,
+      330,
+      60,
+      281,
+      73,
+      118,
+      27,
+      26,
+      8
+    ],
+    [
+      17,
+      3,
+      49,
+      445,
+      153,
+      142,
+      115,
+      28,
+      24,
+      24
+    ],
+    [
+      12,
+      2,
+      22,
+      40,
+      768,
+      15,
+      71,
+      55,
+      11,
+      4
+    ],
+    [
+      8,
+      1,
+      55,
+      226,
+      134,
+      461,
+      50,
+      34,
+      21,
+      10
+    ],
+    [
+      2,
+      2,
+      18,
+      65,
+      77,
+      5,
+      817,
+      2,
+      10,
+      2
+    ],
+    [
+      12,
+      1,
+      28,
+      45,
+      171,
+      79,
+      13,
+      634,
+      6,
+      11
+    ],
+    [
+      62,
+      23,
+      4,
+      13,
+      19,
+      5,
+      13,
+      3,
+      831,
+      27
+    ],
+    [
+      39,
+      43,
+      5,
+      24,
+      23,
+      5,
+      19,
+      25,
+      85,
+      732
+    ]
+  ],
+  "top_confusions": [
+    {
+      "actual": "Avión",
+      "predicted": "Barco",
+      "count": 143
+    },
+    {
+      "actual": "Auto",
+      "predicted": "Camión",
+      "count": 188
+    },
+    {
+      "actual": "Pájaro",
+      "predicted": "Ciervo",
+      "count": 281
+    },
+    {
+      "actual": "Gato",
+      "predicted": "Ciervo",
+      "count": 153
+    },
+    {
+      "actual": "Ciervo",
+      "predicted": "Rana",
+      "count": 71
+    },
+    {
+      "actual": "Perro",
+      "predicted": "Gato",
+      "count": 226
+    },
+    {
+      "actual": "Rana",
+      "predicted": "Ciervo",
+      "count": 77
+    },
+    {
+      "actual": "Caballo",
+      "predicted": "Ciervo",
+      "count": 171
+    },
+    {
+      "actual": "Barco",
+      "predicted": "Avión",
+      "count": 62
+    },
+    {
+      "actual": "Camión",
+      "predicted": "Barco",
+      "count": 85
+    }
+  ],
+  "report": {
+    "Avión": {
+      "precision": 0.7122381477398015,
+      "recall": 0.646,
+      "f1-score": 0.6775039328788673,
+      "support": 1000.0
+    },
+    "Auto": {
+      "precision": 0.8723404255319149,
+      "recall": 0.615,
+      "f1-score": 0.7214076246334311,
+      "support": 1000.0
+    },
+    "Pájaro": {
+      "precision": 0.5799648506151143,
+      "recall": 0.33,
+      "f1-score": 0.42065009560229444,
+      "support": 1000.0
+    },
+    "Gato": {
+      "precision": 0.4704016913319239,
+      "recall": 0.445,
+      "f1-score": 0.4573484069886948,
+      "support": 1000.0
+    },
+    "Ciervo": {
+      "precision": 0.45203060623896407,
+      "recall": 0.768,
+      "f1-score": 0.5690996665431641,
+      "support": 1000.0
+    },
+    "Perro": {
+      "precision": 0.5791457286432161,
+      "recall": 0.461,
+      "f1-score": 0.5133630289532294,
+      "support": 1000.0
+    },
+    "Rana": {
+      "precision": 0.6473851030110935,
+      "recall": 0.817,
+      "f1-score": 0.7223695844385499,
+      "support": 1000.0
+    },
+    "Caballo": {
+      "precision": 0.763855421686747,
+      "recall": 0.634,
+      "f1-score": 0.692896174863388,
+      "support": 1000.0
+    },
+    "Barco": {
+      "precision": 0.6653322658126501,
+      "recall": 0.831,
+      "f1-score": 0.7389951089373055,
+      "support": 1000.0
+    },
+    "Camión": {
+      "precision": 0.7058823529411765,
+      "recall": 0.732,
+      "f1-score": 0.7187039764359352,
+      "support": 1000.0
+    },
+    "accuracy": 0.6279,
+    "macro avg": {
+      "precision": 0.6448576593552602,
+      "recall": 0.6279000000000001,
+      "f1-score": 0.623233760027486,
+      "support": 10000.0
+    },
+    "weighted avg": {
+      "precision": 0.6448576593552602,
+      "recall": 0.6279,
+      "f1-score": 0.6232337600274859,
+      "support": 10000.0
+    }
+  },
+  "sample_count": 10000,
+  "misclassified": 3721
+}
