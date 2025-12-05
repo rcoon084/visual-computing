@@ -108,6 +108,115 @@ Se recomienda analizar:
 
 ---
 
+# **Subsistema 2: Control multimodal (voz + gestos + EEG)**
+
+## **Descripción**
+
+Este subsistema integra **entrada de voz**, **detección de gestos**, **simulación de señales EEG** y **visualización interactiva** en una única interfaz gráfica permitiendo controlar acciones visuales aplicadas sobre una cámara en vivo usando diferentes modalidades sensoriales:
+
+* **Voz ( utilizando Vosk)**
+* **Gestos de manos ( con MediaPipe)**
+* **Señales EEG simuladas (a tráves NumPy)**
+* **Fusión multimodal** para activar filtros visuales específicos
+
+El resultado es un panel único donde se procesa video, se reconocen comandos y se aplican filtros visuales.
+
+## **Componentes Principales**
+
+### **1.  Reconocimiento de Voz**
+
+El subsistema usa **Vosk** para recibir comandos hablados sin conexión a internet.
+
+- **Flujo**:
+
+1. Captura audio usando **sounddevice** con el sample rate recomendado por el modelo.
+2. Envía los buffers al modelo Vosk (Recognizer).
+3. Cuando detecta palabras clave, activa acciones visuales:
+
+| Comando        | Acción                                     |
+| -------------- | ------------------------------------------ |
+| “ROJO o AZUL”       | Activa el filtro del color correspondiente            |
+| “ACERCAR o ALEJAR” | Hace que la camara se acerque o se aleje |
+| "CONFETI"         | Hace que aparezca confeti en la camara                               |
+
+#### Ventajas:
+
+* Baja latencia
+* Integración sencilla
+
+#### **Evidencia:**
+<video controls src="python/subsistema_2/VOZ.mp4" title="VOZ"></video>
+
+---
+
+### **2. Detección de Gestos con MediaPipe Hands**
+
+Se usa **MediaPipe Hands** para detectar la mano y clasificar dos gestos básicos:
+
+| Gesto          | Detección                  | Acción          |
+| -------------- | -------------------------- | --------------- |
+| ✋ Mano abierta | Todos los dedos extendidos | Genera luces de "fiesta" |
+| 👊 Puño        | Ningún dedo extendido      | Prende o apaga la luz (baja el brillo)  |
+| ✌️ paz        | Dedo indice y anular extendidos      | Filtro B/N, Sepia o bordes  |
+
+El gesto solo se activa cuando permanece **estable por un número de frames**, evitando cambios rápidos.
+
+#### **Evidencia:**
+<video controls src="python/subsistema_2/GESTOS.mp4" title="GESTOS"></video>
+
+
+---
+
+### **3. Simulación de Señales EEG**
+
+El subsistema simula un EEG usando ondas sintéticas:
+
+* Onda base tipo alfa (8-12 Hz)
+* Ruido blanco añadido
+* Valores normalizados entre −1 y 1
+
+### **Umbrales configurados:**
+
+* **EEG alto (> 0.6)** → Activa el modo “fusión”
+
+
+### **🧩 Fusión Multimodal**
+
+
+Si el umbral es mayor a 0.6, el sistema combina entradas de:
+
+* Voz
+* Gestos
+* EEG
+
+Para decidir *qué acción final aplicar*.
+Tiene prioridad definida:
+
+1. **Comandos de voz**
+2. **Gestos**
+3. **EEG**
+
+Esto evita conflictos entre fuentes.
+
+#### **Ejemplo:**
+
+- **EEG** > 0.6, AGREGA LUCES INTENSIFICADAS A LOZ GESTOS Y VOZ YA DETERMINADOS
+
+#### **Evidencia:**
+<video controls src="python/subsistema_2/GESTOS+VOZ+EEG.mp4" title="GESTOS+VOZ+EEG"></video>
+
+### **Conclusiones**
+
+Este subsistema proporciona:
+
+* Integración real de **voz + gestos + EEG**
+* Una sola interfaz unificada
+* Efectos visuales animados
+* Procesamiento en tiempo real
+* Arquitectura modular
+
+Ideal para proyectos de interacción humano-máquina, realidad aumentada y prototipos con entradas no convencionales.
+
 
 # Subsistema 3: Visualización 3D Optimizada y Realidad Aumentada
 ##  Descripción del Proyecto
